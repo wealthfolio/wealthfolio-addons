@@ -33,7 +33,7 @@
     },
     {
       "category": "ui",
-      "functions": ["sidebar.addItem", "router.add", "onDisable"],
+      "functions": ["sidebar.addItem", "router.add", "navigation.navigate", "onDisable"],
       "purpose": "Access UI components to display progress"
     }
   ]

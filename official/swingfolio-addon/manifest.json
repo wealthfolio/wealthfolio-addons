@@ -28,7 +28,7 @@
       "purpose": "Access portfolio holdings to calculate unrealized P/L for open positions"
     },
     {
-      "category": "exchangeRates",
+      "category": "currency",
       "functions": ["getAll"],
       "purpose": "Access to exchange rates and currency data"
     },
@@ -39,7 +39,7 @@
     },
     {
       "category": "ui",
-      "functions": ["sidebar.addItem", "router.add", "onDisable"],
+      "functions": ["sidebar.addItem", "router.add", "navigation.navigate", "onDisable"],
       "purpose": "Add navigation and routing for swing trading interface"
     }
   ]
