@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "trade-republic-importer-addon",
+  "name": "Trade Republic Importer",
+  "description": "Import Trade Republic CSV exports into Wealthfolio. Splits cash and portfolio activities across two accounts and handles internal fund transfers automatically.",
+  "author": {
+    "name": "blastik",
+    "url": "https://github.com/blastik"
+  },
+  "trust": "community",
+  "verification": "unverified",
+  "status": "active",
+  "featured": false,
+  "tags": ["import", "csv", "trade-republic"],
+  "repository": "https://github.com/blastik/trade-republic-importer-addon",
+  "release": {
+    "version": "1.0.0",
+    "tag": "v1.0.0",
+    "commit": "022e1137b23564f77a0d522285790a1f711897aa",
+    "minWealthfolioVersion": "3.5.0",
+    "sdkVersion": "3.5.1",
+    "critical": false,
+    "breaking": false,
+    "notes": "Initial release.",
+    "changelogUrl": "https://github.com/blastik/trade-republic-importer-addon/blob/main/CHANGELOG.md"
+  },
+  "supportUrl": "https://github.com/blastik/trade-republic-importer-addon/issues"
+}
