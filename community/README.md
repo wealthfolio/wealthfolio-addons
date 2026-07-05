@@ -10,6 +10,7 @@ Community addons are author-maintained. Unverified directory entries are for dis
 | Value Averaging Addon | wujoe | Runs a value averaging strategy with portfolio weights, top-up rules, growth schedules, and per-ticker investment amounts. | community | unverified | active |  | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | Dividend tracking by year, month, and security with stacked bar charts and per-account tables. | community | unverified | active |  | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
 | Wealthfolio Rebalancer | ibalboteo | Portfolio rebalancing addon for target allocations and long-term portfolio planning. | community | unverified | active |  | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
+| DeGiro Importer | shuisman | Import account statements from DeGiro broker. Supports buys, sells, dividends, deposits, withdrawals, fees and taxes. | community | verified | active | 1.0.1 | [Repo](https://github.com/shuisman/degiro-importer) |
 
 ## Pending
 

@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "degiro-importer",
+  "name": "DeGiro Importer",
+  "description": "Import account statements from DeGiro broker. Supports buys, sells, dividends, deposits, withdrawals, fees and taxes.",
+  "author": {
+    "name": "shuisman",
+    "url": "https://github.com/shuisman"
+  },
+  "trust": "community",
+  "verification": "verified",
+  "status": "active",
+  "tags": ["import", "activities"],
+  "repository": "https://github.com/shuisman/degiro-importer",
+  "supportUrl": "https://github.com/shuisman/degiro-importer/issues",
+  "source": {
+    "repository": "https://github.com/shuisman/degiro-importer",
+    "tag": "v1.0.1",
+    "commit": "b6fa986a511352d9d14715425f85b197dd12efeb"
+  },
+  "release": {
+    "version": "1.0.1",
+    "minWealthfolioVersion": "3.3.0",
+    "sdkVersion": "3.3.0",
+    "critical": false,
+    "breaking": false,
+    "notes": "Initial verified community release. Adds account name confirmation before clear-and-reimport, and passes ISIN field on asset-linked activities.",
+    "changelogUrl": "https://github.com/shuisman/degiro-importer/releases/tag/v1.0.1"
+  },
+  "distribution": {
+    "r2Path": "degiro-importer/1.0.1/degiro-importer.zip",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "media": {
+    "coverLight": "assets/cover-light.webp",
+    "coverDark": "assets/cover-dark.webp"
+  }
+}
