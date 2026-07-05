@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "wealth-tax",
+  "name": "WealthTax",
+  "description": "FIFO realized gains and open positions tax report, with support for stock splits and capital increases.",
+  "author": {
+    "name": "advenacodex",
+    "url": "https://github.com/advenacodex"
+  },
+  "trust": "community",
+  "verification": "unverified",
+  "status": "active",
+  "tags": ["taxes", "fifo", "reporting"],
+  "repository": "https://github.com/advenacodex/wealth-tax"
+}
