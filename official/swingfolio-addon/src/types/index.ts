@@ -1,11 +1,17 @@
 import type { ActivityDetails } from "@wealthfolio/addon-sdk";
 
+export type SwingDashboardPeriod = "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL";
+export type CalendarWeekStartPreference = "locale" | "sunday" | "monday";
+export type DashboardViewPreference = "overview" | "calendar" | "positions" | "analysis";
+
 export interface SwingTradePreferences {
   selectedActivityIds: string[];
   includeSwingTag: boolean;
   selectedAccounts: string[];
   lotMatchingMethod: "FIFO" | "LIFO" | "AVERAGE";
-  defaultDateRange: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL" | "CUSTOM";
+  defaultDateRange: SwingDashboardPeriod | "CUSTOM";
+  calendarWeekStart: CalendarWeekStartPreference;
+  defaultDashboardView: DashboardViewPreference;
   includeFees: boolean;
   includeDividends: boolean;
 }
@@ -133,6 +139,7 @@ export interface PriceData {
 export interface SwingDashboardData {
   metrics: SwingMetrics;
   closedTrades: ClosedTrade[];
+  allClosedTrades: ClosedTrade[];
   openPositions: OpenPosition[];
   equityCurve: EquityPoint[];
   periodPL: PeriodPL[];

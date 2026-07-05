@@ -12,15 +12,22 @@ import {
   Page,
   PageContent,
   PageHeader,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   Skeleton,
 } from "@wealthfolio/ui";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AdaptiveCalendarView } from "../components/adaptive-calendar-view";
 import { DistributionCharts } from "../components/distribution-charts";
 import { EquityCurveChart } from "../components/equity-curve-chart";
 import { OpenTradesTable } from "../components/open-trades-table";
 import { useSwingDashboard } from "../hooks/use-swing-dashboard";
 import { useSwingPreferences } from "../hooks/use-swing-preferences";
+import { cn } from "../lib/utils";
+import type { DashboardViewPreference, SwingDashboardPeriod } from "../types";
 
 const periods = [
   { value: "1M" as const, label: "1M" },
@@ -31,8 +38,29 @@ const periods = [
   { value: "ALL" as const, label: "ALL" },
 ];
 
+const dashboardSections = [
+  { value: "overview" as const, label: "Overview" },
+  { value: "calendar" as const, label: "Calendar" },
+  { value: "positions" as const, label: "Positions" },
+  { value: "analysis" as const, label: "Analysis" },
+];
+
+// Labeled options for the mobile period picker (rendered as a bottom sheet).
+const periodOptions = [
+  { value: "1M", label: "1M", description: "Last month" },
+  { value: "3M", label: "3M", description: "Last 3 months" },
+  { value: "6M", label: "6M", description: "Last 6 months" },
+  { value: "YTD", label: "YTD", description: "Year to date" },
+  { value: "1Y", label: "1Y", description: "Last 12 months" },
+  { value: "ALL", label: "ALL", description: "All time" },
+];
+
+function normalizeDefaultPeriod(period: SwingDashboardPeriod | "CUSTOM"): SwingDashboardPeriod {
+  return period === "CUSTOM" ? "YTD" : period;
+}
+
 // Chart period type is now automatically determined based on selected period
-const getChartPeriodDisplay = (period: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL") => {
+const getChartPeriodDisplay = (period: SwingDashboardPeriod) => {
   switch (period) {
     case "1M":
       return {
@@ -53,8 +81,8 @@ const getChartPeriodDisplay = (period: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL"
 };
 
 const PeriodSelector: React.FC<{
-  selectedPeriod: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL";
-  onPeriodSelect: (period: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL") => void;
+  selectedPeriod: SwingDashboardPeriod;
+  onPeriodSelect: (period: SwingDashboardPeriod) => void;
 }> = ({ selectedPeriod, onPeriodSelect }) => (
   <AnimatedToggleGroup
     items={periods}
@@ -65,19 +93,108 @@ const PeriodSelector: React.FC<{
   />
 );
 
+const DashboardSectionSelector: React.FC<{
+  selectedSection: DashboardViewPreference;
+  onSectionSelect: (section: DashboardViewPreference) => void;
+  className?: string;
+}> = ({ selectedSection, onSectionSelect, className }) => (
+  <AnimatedToggleGroup
+    items={dashboardSections}
+    value={selectedSection}
+    onValueChange={onSectionSelect}
+    variant="secondary"
+    size="sm"
+    className={className}
+  />
+);
+
+// Compact period control for mobile: a pill that opens a bottom sheet with the
+// ranges laid out as a 2-column grid — all six visible at once, no scrolling,
+// and much easier to tap than six tiny segments in a single pill.
+const MobilePeriodSelect: React.FC<{
+  selectedPeriod: SwingDashboardPeriod;
+  onPeriodSelect: (period: SwingDashboardPeriod) => void;
+}> = ({ selectedPeriod, onPeriodSelect }) => {
+  const [open, setOpen] = useState(false);
+  const current = periodOptions.find((option) => option.value === selectedPeriod);
+
+  return (
+    <>
+      <Button
+        variant="outline"
+        className="h-9 min-w-[6.5rem] justify-between rounded-full font-normal"
+        onClick={() => setOpen(true)}
+        aria-label="Select time period"
+      >
+        <span>{current?.label ?? "Period"}</span>
+        <Icons.ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="bottom" className="mx-1 rounded-t-4xl">
+          <SheetHeader className="text-left">
+            <SheetTitle>Time period</SheetTitle>
+            <SheetDescription>Choose the range used for performance metrics</SheetDescription>
+          </SheetHeader>
+          <div className="grid grid-cols-2 gap-2 pt-4">
+            {periodOptions.map((option) => {
+              const isSelected = option.value === selectedPeriod;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => {
+                    onPeriodSelect(option.value as SwingDashboardPeriod);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "flex flex-col gap-0.5 rounded-2xl border px-4 py-3 text-left transition-colors",
+                    isSelected
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border hover:bg-accent active:bg-accent/80",
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">{option.label}</span>
+                    {isSelected ? <Icons.Check className="h-4 w-4 shrink-0" /> : null}
+                  </div>
+                  <span className="text-muted-foreground text-xs">{option.description}</span>
+                </button>
+              );
+            })}
+          </div>
+        </SheetContent>
+      </Sheet>
+    </>
+  );
+};
+
 interface DashboardPageProps {
   ctx: AddonContext;
 }
 
 export default function DashboardPage({ ctx }: DashboardPageProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState<"1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL">(
-    "YTD",
-  );
+  const { preferences, isLoading: isLoadingPreferences } = useSwingPreferences(ctx);
+  const initialPreferencesAppliedRef = useRef(false);
+  const [selectedPeriod, setSelectedPeriod] = useState<SwingDashboardPeriod>("YTD");
   const [selectedYear, setSelectedYear] = useState(new Date());
+  const [selectedDashboardSection, setSelectedDashboardSection] =
+    useState<DashboardViewPreference>("overview");
 
-  const handlePeriodSelect = (period: "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL") => {
+  useEffect(() => {
+    if (isLoadingPreferences || initialPreferencesAppliedRef.current) return;
+
+    setSelectedPeriod(normalizeDefaultPeriod(preferences.defaultDateRange));
+    setSelectedDashboardSection(preferences.defaultDashboardView);
+    initialPreferencesAppliedRef.current = true;
+  }, [isLoadingPreferences, preferences.defaultDashboardView, preferences.defaultDateRange]);
+
+  const handlePeriodSelect = (period: SwingDashboardPeriod) => {
     setSelectedPeriod(period);
     setSelectedYear(new Date());
+  };
+
+  const handleCalendarPeriodChange = (period: SwingDashboardPeriod) => {
+    setSelectedPeriod(period);
   };
 
   const {
@@ -87,7 +204,6 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
     error,
     refetch,
   } = useSwingDashboard(ctx, selectedPeriod);
-  const { preferences } = useSwingPreferences(ctx);
 
   const handleNavigateToActivities = () => {
     ctx.api.navigation.navigate("/addons/swingfolio/activities");
@@ -121,7 +237,14 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
     );
   }
 
-  const { metrics, openPositions = [], periodPL = [], distribution, calendar = [] } = dashboardData;
+  const {
+    metrics,
+    openPositions = [],
+    periodPL = [],
+    distribution,
+    calendar = [],
+    allClosedTrades = [],
+  } = dashboardData;
 
   const hasSelectedActivities =
     preferences.selectedActivityIds.length > 0 || preferences.includeSwingTag;
@@ -205,13 +328,28 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
 
       <PageContent>
         <div className="space-y-4 sm:space-y-6">
-          {/* Mobile period selector */}
-          <div className="flex justify-end md:hidden">
-            <PeriodSelector selectedPeriod={selectedPeriod} onPeriodSelect={handlePeriodSelect} />
+          {/* Mobile controls — sticky so period/section stay reachable while scrolling */}
+          <div className="bg-background/85 supports-[backdrop-filter]:bg-background/65 sticky top-0 z-20 -mx-2 space-y-2 px-2 py-2 backdrop-blur md:hidden">
+            <DashboardSectionSelector
+              className="w-full"
+              selectedSection={selectedDashboardSection}
+              onSectionSelect={setSelectedDashboardSection}
+            />
+            <div className="flex justify-end">
+              <MobilePeriodSelect
+                selectedPeriod={selectedPeriod}
+                onPeriodSelect={handlePeriodSelect}
+              />
+            </div>
           </div>
 
           {/* KPI Cards */}
-          <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3">
+          <div
+            className={cn(
+              "grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3",
+              selectedDashboardSection !== "overview" && "hidden md:grid",
+            )}
+          >
             {/* Widget 1: Overall P/L Summary - Clean Design */}
 
             <Card
@@ -337,9 +475,21 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
           </div>
 
           {/* Charts Row - Equity Curve and Calendar */}
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+          <div
+            className={cn(
+              "grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2",
+              selectedDashboardSection !== "overview" &&
+                selectedDashboardSection !== "calendar" &&
+                "hidden md:grid",
+            )}
+          >
             {/* Equity Curve */}
-            <Card className="flex flex-col">
+            <Card
+              className={cn(
+                "flex flex-col",
+                selectedDashboardSection !== "overview" && "hidden md:flex",
+              )}
+            >
               <CardHeader className="shrink-0 pb-2">
                 <CardTitle className="text-base sm:text-lg">
                   {getChartPeriodDisplay(selectedPeriod).type} Equity Curve
@@ -362,21 +512,29 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
                 />
               </CardContent>
             </Card>
-            <Card className="flex flex-col pt-0">
+            <Card
+              className={cn(
+                "flex flex-col pt-0",
+                selectedDashboardSection !== "calendar" && "hidden md:flex",
+              )}
+            >
               <CardContent className="flex min-h-0 flex-1 flex-col px-2 py-2 sm:px-6 sm:py-4">
                 <AdaptiveCalendarView
                   calendar={calendar}
+                  closedTrades={allClosedTrades}
                   selectedPeriod={selectedPeriod}
                   selectedYear={selectedYear}
                   onYearChange={setSelectedYear}
+                  onPeriodChange={handleCalendarPeriodChange}
                   currency={metrics.currency}
+                  calendarWeekStart={preferences.calendarWeekStart}
                 />
               </CardContent>
             </Card>
           </div>
 
           {/* Open Positions - Full Width on Mobile */}
-          <Card>
+          <Card className={cn(selectedDashboardSection !== "positions" && "hidden md:block")}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base sm:text-lg">Open Positions</CardTitle>
               <span className="text-muted-foreground text-sm">
@@ -394,7 +552,9 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
           </Card>
 
           {/* Distribution Charts */}
-          <DistributionCharts distribution={distribution} currency={metrics.currency} />
+          <div className={cn(selectedDashboardSection !== "analysis" && "hidden md:block")}>
+            <DistributionCharts distribution={distribution} currency={metrics.currency} />
+          </div>
         </div>
       </PageContent>
     </Page>

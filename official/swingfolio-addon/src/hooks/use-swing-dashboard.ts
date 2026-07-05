@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import type { AddonContext, Holding } from "@wealthfolio/addon-sdk";
-import type { SwingDashboardData, ClosedTrade, OpenPosition } from "../types";
+import type { SwingDashboardData, ClosedTrade, OpenPosition, SwingDashboardPeriod } from "../types";
 import { useSwingActivities } from "./use-swing-activities";
 import { useSwingPreferences } from "./use-swing-preferences";
 import { useHoldings } from "./use-holdings";
@@ -9,7 +9,6 @@ import { TradeMatcher, PerformanceCalculator } from "../lib";
 import { useCurrencyConversion } from "./use-currency-conversion";
 import { startOfDay, endOfDay, startOfYear, subMonths, subYears } from "date-fns";
 
-type PeriodType = "1M" | "3M" | "6M" | "YTD" | "1Y" | "ALL";
 type ChartPeriodType = "daily" | "weekly" | "monthly";
 
 /**
@@ -24,7 +23,7 @@ type ChartPeriodType = "daily" | "weekly" | "monthly";
  * - Total P/L combines: period-filtered realized P/L + ALL unrealized P/L
  * - Chart granularity adapts to period: 1M=daily, 3M=weekly, others=monthly
  */
-export function useSwingDashboard(ctx: AddonContext, period: PeriodType) {
+export function useSwingDashboard(ctx: AddonContext, period: SwingDashboardPeriod) {
   const { data: activities } = useSwingActivities(ctx);
   const { preferences } = useSwingPreferences(ctx);
   const { exchangeRates, baseCurrency } = useCurrencyConversion({ ctx });
@@ -61,6 +60,7 @@ export function useSwingDashboard(ctx: AddonContext, period: PeriodType) {
 
   const { data: holdings } = useHoldings({
     ctx,
+    accountIds,
     enabled: accountIds.length > 0,
   });
 
@@ -144,6 +144,7 @@ export function useSwingDashboard(ctx: AddonContext, period: PeriodType) {
       return {
         metrics, // Hybrid: period realized P/L + all unrealized P/L
         closedTrades: periodClosedTrades, // Period-filtered historical trades
+        allClosedTrades: closedTrades, // All closed trades for calendar drill-down
         openPositions: updatedOpenPositions, // ALL current open positions
         equityCurve, // Period-filtered historical performance
         periodPL, // Period-filtered chart data
@@ -294,7 +295,7 @@ function findMatchingHolding(symbol: string, holdings: Holding[]): Holding | und
 /**
  * Get date range for the selected period
  */
-function getDateRangeForPeriod(period: PeriodType): { startDate: Date; endDate: Date } {
+function getDateRangeForPeriod(period: SwingDashboardPeriod): { startDate: Date; endDate: Date } {
   const now = new Date();
   const endDate = endOfDay(now);
   let startDate: Date;

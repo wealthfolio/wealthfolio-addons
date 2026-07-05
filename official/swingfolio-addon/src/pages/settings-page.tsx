@@ -18,6 +18,11 @@ import {
 } from "@wealthfolio/ui";
 import type { AddonContext } from "@wealthfolio/addon-sdk";
 import { useSwingPreferences } from "../hooks/use-swing-preferences";
+import type {
+  CalendarWeekStartPreference,
+  DashboardViewPreference,
+  SwingTradePreferences,
+} from "../types";
 
 interface SettingsPageProps {
   ctx: AddonContext;
@@ -30,8 +35,16 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
     updatePreferences({ lotMatchingMethod: method });
   };
 
-  const handleDefaultDateRangeChange = (range: any) => {
+  const handleDefaultDateRangeChange = (range: SwingTradePreferences["defaultDateRange"]) => {
     updatePreferences({ defaultDateRange: range });
+  };
+
+  const handleCalendarWeekStartChange = (calendarWeekStart: CalendarWeekStartPreference) => {
+    updatePreferences({ calendarWeekStart });
+  };
+
+  const handleDefaultDashboardViewChange = (defaultDashboardView: DashboardViewPreference) => {
+    updatePreferences({ defaultDashboardView });
   };
 
   const handleIncludeFeesChange = (checked: boolean) => {
@@ -115,6 +128,47 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
               </Select>
               <p className="text-muted-foreground mt-1 text-xs">
                 Default time period when opening the dashboard
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="default-dashboard-view">Default Mobile Section</Label>
+              <Select
+                value={preferences.defaultDashboardView}
+                onValueChange={handleDefaultDashboardViewChange}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="overview">Overview</SelectItem>
+                  <SelectItem value="calendar">Calendar</SelectItem>
+                  <SelectItem value="positions">Positions</SelectItem>
+                  <SelectItem value="analysis">Analysis</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-muted-foreground mt-1 text-xs">
+                First section shown on mobile and narrow web screens
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="calendar-week-start">Calendar Week Start</Label>
+              <Select
+                value={preferences.calendarWeekStart}
+                onValueChange={handleCalendarWeekStartChange}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="locale">System Locale</SelectItem>
+                  <SelectItem value="sunday">Sunday</SelectItem>
+                  <SelectItem value="monday">Monday</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-muted-foreground mt-1 text-xs">
+                Controls weekday order in the daily calendar
               </p>
             </div>
           </CardContent>

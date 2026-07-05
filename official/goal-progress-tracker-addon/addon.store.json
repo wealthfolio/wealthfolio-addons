@@ -7,16 +7,16 @@
   "featured": true,
   "tags": ["planning", "goals"],
   "release": {
-    "version": "3.5.1",
+    "version": "3.6.0",
     "minWealthfolioVersion": "3.6.0",
-    "sdkVersion": "3.5.1",
+    "sdkVersion": "3.6.0",
     "critical": false,
     "breaking": false,
     "notes": "Requires Wealthfolio 3.6.0 or later.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/goal-progress-tracker-addon/CHANGELOG.md"
   },
   "distribution": {
-    "r2Path": "goal-progress-tracker-addon/3.5.1/goal-progress-tracker-addon.zip"
+    "r2Path": "goal-progress-tracker-addon/3.6.0/goal-progress-tracker-addon.zip"
   },
   "media": {
     "coverLight": "assets/cover-light.webp",

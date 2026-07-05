@@ -8,6 +8,8 @@ const DEFAULT_PREFERENCES: SwingTradePreferences = {
   selectedAccounts: [],
   lotMatchingMethod: "FIFO",
   defaultDateRange: "YTD",
+  calendarWeekStart: "locale",
+  defaultDashboardView: "overview",
   includeFees: true,
   includeDividends: false,
 };
