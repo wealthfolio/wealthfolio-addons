@@ -10,10 +10,22 @@ import {
   useBalancePrivacy,
 } from "@wealthfolio/ui";
 import { useEffect, useState } from "react";
-import { createRoot, type Root } from "react-dom/client";
 import { GoalSelector, HelpPopover, InvestmentCalendar } from "./components";
 import { useGoalProgress } from "./hooks";
 import { toFiniteAmount } from "./lib/utils";
+
+// The host owns a single React root per addon and instantiates the route
+// `component` itself (`React.createElement(Component, { location })`) with no
+// access to the addon context. We capture the context at enable time in this
+// module-level holder so the route wrapper can supply it (plus the shared
+// QueryClientProvider) to the page component.
+let addonCtx: AddonContext | undefined;
+
+const TargetTrackerRoute = () => (
+  <QueryClientProvider client={addonCtx!.api.query.getClient() as QueryClient}>
+    <InvestmentTargetTracker ctx={addonCtx!} />
+  </QueryClientProvider>
+);
 
 // Main Investment Target Tracker component
 function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
@@ -178,38 +190,19 @@ function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
  * - Interactive milestone tracking
  */
 export default function enable(ctx: AddonContext) {
+  addonCtx = ctx;
   ctx.api.logger.info("🎯 Investment Target Tracker addon is being enabled!");
 
-  // Store references to items for cleanup
-  const addedItems: Array<{ remove: () => void }> = [];
-  let routeRoot: Root | undefined;
-
   try {
-    // Add sidebar navigation item
-    const sidebarItem = ctx.sidebar.addItem({
-      id: "investment-target-tracker",
-      label: "Target Tracker",
-      icon: "calendar-dots",
-      route: "/addon/investment-target-tracker",
-      order: 200,
-    });
-    addedItems.push(sidebarItem);
-
-    ctx.api.logger.debug("Sidebar navigation item added successfully");
-
-    // Register route
+    // The route is declared in manifest.json `contributes.routes` (so the host
+    // can render it before this addon boots — reload-safe deep links + lazy
+    // activation). The runtime id MUST match the declared
+    // `contributes.routes[].id`. The sidebar entry comes from
+    // `contributes.links.sidebar` — no runtime sidebar.addItem needed.
     ctx.router.add({
       id: "investment-target-tracker",
       path: "/addon/investment-target-tracker",
-      render({ root }) {
-        const sharedQueryClient = ctx.api.query.getClient() as QueryClient;
-        routeRoot ??= createRoot(root);
-        routeRoot.render(
-          <QueryClientProvider client={sharedQueryClient}>
-            <InvestmentTargetTracker ctx={ctx} />
-          </QueryClientProvider>,
-        );
-      },
+      component: TargetTrackerRoute,
     });
 
     ctx.api.logger.debug("Route registered successfully");
@@ -220,22 +213,11 @@ export default function enable(ctx: AddonContext) {
     throw error;
   }
 
-  // Register cleanup callback
+  // Register cleanup callback. The host owns the React root, so there is no
+  // root to unmount here.
   ctx.onDisable(() => {
     ctx.api.logger.info("🛑 Investment Target Tracker addon is being disabled");
-
-    // Remove all sidebar items
-    addedItems.forEach((item) => {
-      try {
-        item.remove();
-      } catch (error) {
-        ctx.api.logger.error("Error removing sidebar item: " + (error as Error).message);
-      }
-    });
-
-    // Unmount the addon's React tree
-    routeRoot?.unmount();
-
+    addonCtx = undefined;
     ctx.api.logger.info("Investment Target Tracker addon disabled successfully");
   });
 }

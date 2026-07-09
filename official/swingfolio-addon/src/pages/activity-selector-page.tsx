@@ -35,7 +35,8 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
   const [selectedActivities, setSelectedActivities] = useState<Set<string>>(new Set());
 
   const { data: activities, isLoading, error } = useSwingActivities(ctx);
-  const { preferences, updatePreferences, isUpdating } = useSwingPreferences(ctx);
+  const { preferences, updatePreferences, updatePreferencesAsync, isUpdating } =
+    useSwingPreferences(ctx);
 
   // Initialize selected activities from preferences
   React.useEffect(() => {
@@ -93,14 +94,30 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
   };
 
   const handleToggleSwingTag = (enabled: boolean) => {
-    updatePreferences({ includeSwingTag: enabled });
+    if (enabled) {
+      // Auto-selection supersedes the manual set: clear it (local state and
+      // persisted ids atomically) so stale hand-picked activities don't linger
+      // alongside the tag-driven selection.
+      setSelectedActivities(new Set());
+      updatePreferences({ includeSwingTag: true, selectedActivityIds: [] });
+      return;
+    }
+    updatePreferences({ includeSwingTag: false });
   };
 
-  const handleSaveSelection = () => {
-    updatePreferences({
-      selectedActivityIds: Array.from(selectedActivities),
-    });
-    ctx.api.navigation.navigate("/addons/swingfolio");
+  const handleSaveSelection = async () => {
+    try {
+      // Navigate only after the write settles: navigating immediately unmounts
+      // this page mid-mutation, which can skip the cache update and leave the
+      // dashboard serving the pre-save selection.
+      await updatePreferencesAsync({
+        selectedActivityIds: Array.from(selectedActivities),
+      });
+      ctx.api.navigation.navigate("/addons/swingfolio");
+    } catch {
+      // Save failed — the hook already toasts the error; stay on the page so
+      // the selection isn't lost and the user can retry.
+    }
   };
 
   const selectedCount = selectedActivities.size;

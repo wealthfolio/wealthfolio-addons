@@ -23,7 +23,7 @@ export function useSwingPreferences(ctx: AddonContext) {
     queryKey: ["swing-preferences"],
     queryFn: async (): Promise<SwingTradePreferences> => {
       try {
-        const stored = localStorage.getItem(PREFERENCES_KEY);
+        const stored = await ctx.api.storage.get(PREFERENCES_KEY);
         if (stored) {
           return { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) };
         }
@@ -39,10 +39,24 @@ export function useSwingPreferences(ctx: AddonContext) {
   });
 
   const mutation = useMutation({
+    // Serialize concurrent preference writes: rapid mutations (e.g.
+    // double-toggling a checkbox) would otherwise read the same stale snapshot
+    // and the later write would silently undo the earlier one.
+    scope: { id: "swing-preferences" },
     mutationFn: async (preferences: Partial<SwingTradePreferences>) => {
-      const current = query.data || DEFAULT_PREFERENCES;
+      // Merge onto the freshest state at EXECUTION time (not the render-time
+      // closure): read the cache, and before the initial load has populated
+      // it, re-read storage — falling back to defaults here would silently
+      // wipe saved fields.
+      let current = queryClient.getQueryData<SwingTradePreferences>(["swing-preferences"]);
+      if (!current) {
+        const stored = await ctx.api.storage.get(PREFERENCES_KEY);
+        current = stored
+          ? { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) }
+          : DEFAULT_PREFERENCES;
+      }
       const updated = { ...current, ...preferences };
-      localStorage.setItem(PREFERENCES_KEY, JSON.stringify(updated));
+      await ctx.api.storage.set(PREFERENCES_KEY, JSON.stringify(updated));
       return updated;
     },
     onSuccess: (data) => {
@@ -50,6 +64,9 @@ export function useSwingPreferences(ctx: AddonContext) {
       ctx.api.logger.debug("Swing preferences updated successfully");
     },
     onError: (error) => {
+      // Surface the failure — a silent save error leaves the UI reverting on
+      // the next read with no explanation.
+      ctx.api.toast.error("Failed to save Swingfolio preferences: " + error.message);
       ctx.api.logger.error("Failed to save preferences: " + error.message);
     },
   });
@@ -59,6 +76,9 @@ export function useSwingPreferences(ctx: AddonContext) {
     isLoading: query.isLoading,
     error: query.error,
     updatePreferences: mutation.mutate,
+    // Await-able variant for flows that must not proceed until the write
+    // settles (e.g. save-then-navigate).
+    updatePreferencesAsync: mutation.mutateAsync,
     isUpdating: mutation.isPending,
   };
 }

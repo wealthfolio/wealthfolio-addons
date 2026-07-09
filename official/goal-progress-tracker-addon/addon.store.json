@@ -5,14 +5,17 @@
   "verification": "verified",
   "status": "active",
   "featured": true,
-  "tags": ["planning", "goals"],
+  "tags": [
+    "planning",
+    "goals"
+  ],
   "release": {
-    "version": "3.6.0",
-    "minWealthfolioVersion": "3.6.0",
-    "sdkVersion": "3.6.0",
+    "version": "3.6.1",
+    "minWealthfolioVersion": "3.6.1",
+    "sdkVersion": "3.6.1",
     "critical": false,
     "breaking": false,
-    "notes": "Requires Wealthfolio 3.6.0 or later.",
+    "notes": "Requires Wealthfolio 3.6.1 or later.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/goal-progress-tracker-addon/CHANGELOG.md"
   },
   "distribution": {
