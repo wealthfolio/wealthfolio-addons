@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "myinvestor-importer-addon",
+  "name": "MyInvestor Importer",
+  "description": "Import MyInvestor (Inversis) exports into Wealthfolio. Merges the cuenta corriente and fondos exports into buy/sell/switch/cash activities on a single account.",
+  "author": {
+    "name": "blastik",
+    "url": "https://github.com/blastik"
+  },
+  "trust": "community",
+  "verification": "unverified",
+  "status": "active",
+  "tags": ["import", "myinvestor", "inversis"],
+  "repository": "https://github.com/blastik/myinvestor-importer-addon"
+}
