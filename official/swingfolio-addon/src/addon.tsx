@@ -1,15 +1,19 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { AddonContext, AddonEnableFunction } from "@wealthfolio/addon-sdk";
+import type {
+  AddonContext,
+  AddonEnableFunction,
+  AddonRouteRenderContext,
+} from "@wealthfolio/addon-sdk";
+import { createRoot, type Root } from "react-dom/client";
 import ActivitySelectorPage from "./pages/activity-selector-page";
 import DashboardPage from "./pages/dashboard-page";
 import SettingsPage from "./pages/settings-page";
 
-// The host owns a single React root per addon and instantiates the route
-// `component` itself (`React.createElement(Component, { location })`) with no
-// access to the addon context. We capture the context at enable time in this
-// module-level holder so the route wrappers can supply it (plus a shared
-// QueryClientProvider) to the page components.
+// One React root is shared across all three routes. Creating a separate root
+// for each route leaves orphaned trees in the sandbox after navigation.
 let addonCtx: AddonContext | undefined;
+let reactRoot: Root | undefined;
+let rootElement: HTMLElement | undefined;
 
 const withProviders = (page: React.ReactNode) => (
   <div className="swingfolio-addon">
@@ -19,38 +23,58 @@ const withProviders = (page: React.ReactNode) => (
   </div>
 );
 
-const DashboardRoute = () => withProviders(<DashboardPage ctx={addonCtx!} />);
-const ActivitiesRoute = () => withProviders(<ActivitySelectorPage ctx={addonCtx!} />);
-const SettingsRoute = () => withProviders(<SettingsPage ctx={addonCtx!} />);
+const renderRoute = (getPage: () => React.ReactNode) =>
+  function render({ root }: AddonRouteRenderContext) {
+    if (!reactRoot || rootElement !== root) {
+      reactRoot?.unmount();
+      reactRoot = createRoot(root);
+      rootElement = root;
+    }
+    reactRoot.render(withProviders(getPage()));
+  };
+
+const renderDashboard = renderRoute(() => <DashboardPage ctx={addonCtx!} />);
+const renderActivities = renderRoute(() => <ActivitySelectorPage ctx={addonCtx!} />);
+const renderSettings = renderRoute(() => <SettingsPage ctx={addonCtx!} />);
 
 // Addon enable function - called when the addon is loaded
 const enable: AddonEnableFunction = (context) => {
   addonCtx = context;
+  let removeSidebarItem: (() => void) | undefined;
   context.api.logger.info("📈 Swingfolio addon is being enabled!");
 
   try {
-    // All three routes are declared in manifest.json `contributes.routes` (so
-    // the host can render them before this addon boots — reload-safe deep
-    // links + lazy activation). Each runtime id MUST match its declared
-    // `contributes.routes[].id`. The sidebar entry comes from
-    // `contributes.links.sidebar` — no runtime sidebar.addItem needed.
+    // Current hosts ingest these routes from manifest.json before the addon
+    // boots. Each runtime id MUST match its declared contributes.routes id.
     context.router.add({
       id: "swingfolio",
-      path: "/addons/swingfolio",
-      component: DashboardRoute,
+      path: "/addons/swingfolio-addon",
+      render: renderDashboard,
     });
 
     context.router.add({
       id: "swingfolio-activities",
-      path: "/addons/swingfolio/activities",
-      component: ActivitiesRoute,
+      path: "/addons/swingfolio-addon/activities",
+      render: renderActivities,
     });
 
     context.router.add({
       id: "swingfolio-settings",
-      path: "/addons/swingfolio/settings",
-      component: SettingsRoute,
+      path: "/addons/swingfolio-addon/settings",
+      render: renderSettings,
     });
+
+    // Current hosts use the durable manifest contribution. Registering the
+    // same id at runtime keeps earlier 3.6.1 builds compatible; current hosts
+    // deduplicate it in favor of the durable entry.
+    const sidebarItem = context.sidebar.addItem({
+      id: "swingfolio",
+      label: "Swingfolio",
+      icon: "chart-bar",
+      route: "/addons/swingfolio-addon",
+      order: 150,
+    });
+    removeSidebarItem = () => sidebarItem.remove();
 
     context.api.logger.info("Swingfolio addon enabled successfully");
   } catch (error) {
@@ -58,10 +82,12 @@ const enable: AddonEnableFunction = (context) => {
     throw error;
   }
 
-  // Register cleanup callback. The host owns the React root, so there is no
-  // root to unmount here.
   context.onDisable(() => {
     context.api.logger.info("🛑 Swingfolio addon is being disabled");
+    removeSidebarItem?.();
+    reactRoot?.unmount();
+    reactRoot = undefined;
+    rootElement = undefined;
     addonCtx = undefined;
     context.api.logger.info("Swingfolio addon disabled successfully");
   });

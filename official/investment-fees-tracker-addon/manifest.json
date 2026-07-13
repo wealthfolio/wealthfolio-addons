@@ -1,17 +1,15 @@
 {
   "id": "investment-fees-tracker-addon",
   "name": "Investment Fees Tracker",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "Track and analyze investment fees across your portfolio with detailed analytics and insights",
   "author": "Wealthfolio",
   "main": "dist/addon.js",
-  "sdkVersion": "3.6.1",
-  "minWealthfolioVersion": "3.6.1",
+  "sdkVersion": "3.6.2",
+  "minWealthfolioVersion": "3.6.2",
   "enabled": true,
   "contributes": {
-    "routes": [
-      { "id": "investment-fees-tracker", "path": "/addons/investment-fees-tracker" }
-    ],
+    "routes": [{ "id": "investment-fees-tracker" }],
     "links": {
       "sidebar": [
         {
@@ -26,8 +24,8 @@
   },
   "hostDependencies": {
     "@tanstack/react-query": "^5.90.0",
-    "@wealthfolio/addon-sdk": "^3.6.1",
-    "@wealthfolio/ui": "^3.6.0",
+    "@wealthfolio/addon-sdk": "^3.6.2",
+    "@wealthfolio/ui": "^3.6.2",
     "date-fns": "^4.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -55,9 +53,9 @@
       "purpose": "Access settings to get base currency for fees calculation"
     },
     {
-      "category": "financial-planning",
-      "functions": ["getAll", "getFunding"],
-      "purpose": "Access goals to integrate investment fee analysis with goal progress"
+      "category": "ui",
+      "functions": ["sidebar.addItem", "router.add", "onDisable"],
+      "purpose": "Register the investment fees interface"
     }
   ]
 }

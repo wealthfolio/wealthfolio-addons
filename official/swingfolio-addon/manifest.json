@@ -1,18 +1,18 @@
 {
   "id": "swingfolio-addon",
   "name": "Swingfolio: Simple Stock Trading Tracker",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "A simple swing stock trading tracker with performance analytics and calendar views",
   "author": "Wealthfolio",
   "main": "dist/addon.js",
-  "sdkVersion": "3.6.1",
-  "minWealthfolioVersion": "3.6.1",
+  "sdkVersion": "3.6.2",
+  "minWealthfolioVersion": "3.6.2",
   "enabled": true,
   "contributes": {
     "routes": [
-      { "id": "swingfolio", "path": "/addons/swingfolio" },
-      { "id": "swingfolio-activities", "path": "/addons/swingfolio/activities" },
-      { "id": "swingfolio-settings", "path": "/addons/swingfolio/settings" }
+      { "id": "swingfolio" },
+      { "id": "swingfolio-activities", "path": "activities" },
+      { "id": "swingfolio-settings", "path": "settings" }
     ],
     "links": {
       "sidebar": [
@@ -28,8 +28,8 @@
   },
   "hostDependencies": {
     "@tanstack/react-query": "^5.90.0",
-    "@wealthfolio/addon-sdk": "^3.6.1",
-    "@wealthfolio/ui": "^3.6.0",
+    "@wealthfolio/addon-sdk": "^3.6.2",
+    "@wealthfolio/ui": "^3.6.2",
     "date-fns": "^4.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -54,6 +54,11 @@
       "category": "settings",
       "functions": ["get"],
       "purpose": "Access to application settings to get the base currency"
+    },
+    {
+      "category": "ui",
+      "functions": ["sidebar.addItem", "router.add", "navigation.navigate", "onDisable"],
+      "purpose": "Register and navigate the Swingfolio interface"
     }
   ]
 }

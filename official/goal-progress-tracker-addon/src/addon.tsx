@@ -1,5 +1,5 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import { type AddonContext, type Goal } from "@wealthfolio/addon-sdk";
+import { type AddonContext, type AddonRouteRenderContext, type Goal } from "@wealthfolio/addon-sdk";
 import {
   Button,
   EmptyPlaceholder,
@@ -10,22 +10,31 @@ import {
   useBalancePrivacy,
 } from "@wealthfolio/ui";
 import { useEffect, useState } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import { GoalSelector, HelpPopover, InvestmentCalendar } from "./components";
 import { useGoalProgress } from "./hooks";
 import { toFiniteAmount } from "./lib/utils";
 
-// The host owns a single React root per addon and instantiates the route
-// `component` itself (`React.createElement(Component, { location })`) with no
-// access to the addon context. We capture the context at enable time in this
-// module-level holder so the route wrapper can supply it (plus the shared
-// QueryClientProvider) to the page component.
+// One React root is shared across every render of this addon route. Creating a
+// new root for each render leaves orphaned trees in the sandbox.
 let addonCtx: AddonContext | undefined;
+let reactRoot: Root | undefined;
+let rootElement: HTMLElement | undefined;
 
 const TargetTrackerRoute = () => (
   <QueryClientProvider client={addonCtx!.api.query.getClient() as QueryClient}>
     <InvestmentTargetTracker ctx={addonCtx!} />
   </QueryClientProvider>
 );
+
+function renderTargetTracker({ root }: AddonRouteRenderContext) {
+  if (!reactRoot || rootElement !== root) {
+    reactRoot?.unmount();
+    reactRoot = createRoot(root);
+    rootElement = root;
+  }
+  reactRoot.render(<TargetTrackerRoute />);
+}
 
 // Main Investment Target Tracker component
 function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
@@ -191,19 +200,29 @@ function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
  */
 export default function enable(ctx: AddonContext) {
   addonCtx = ctx;
+  let removeSidebarItem: (() => void) | undefined;
   ctx.api.logger.info("🎯 Investment Target Tracker addon is being enabled!");
 
   try {
-    // The route is declared in manifest.json `contributes.routes` (so the host
-    // can render it before this addon boots — reload-safe deep links + lazy
-    // activation). The runtime id MUST match the declared
-    // `contributes.routes[].id`. The sidebar entry comes from
-    // `contributes.links.sidebar` — no runtime sidebar.addItem needed.
+    // Current hosts ingest this route from manifest.json before the addon
+    // boots. The runtime id MUST match the declared contributes.routes id.
     ctx.router.add({
       id: "investment-target-tracker",
-      path: "/addon/investment-target-tracker",
-      component: TargetTrackerRoute,
+      path: "/addons/goal-progress-tracker-addon",
+      render: renderTargetTracker,
     });
+
+    // Current hosts use the durable manifest contribution. Registering the
+    // same id at runtime keeps earlier 3.6.1 builds compatible; current hosts
+    // deduplicate it in favor of the durable entry.
+    const sidebarItem = ctx.sidebar.addItem({
+      id: "investment-target-tracker",
+      label: "Target Tracker",
+      icon: "calendar-dots",
+      route: "/addons/goal-progress-tracker-addon",
+      order: 200,
+    });
+    removeSidebarItem = () => sidebarItem.remove();
 
     ctx.api.logger.debug("Route registered successfully");
     ctx.api.logger.info("Investment Target Tracker addon enabled successfully");
@@ -213,10 +232,12 @@ export default function enable(ctx: AddonContext) {
     throw error;
   }
 
-  // Register cleanup callback. The host owns the React root, so there is no
-  // root to unmount here.
   ctx.onDisable(() => {
     ctx.api.logger.info("🛑 Investment Target Tracker addon is being disabled");
+    removeSidebarItem?.();
+    reactRoot?.unmount();
+    reactRoot = undefined;
+    rootElement = undefined;
     addonCtx = undefined;
     ctx.api.logger.info("Investment Target Tracker addon disabled successfully");
   });

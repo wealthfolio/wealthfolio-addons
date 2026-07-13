@@ -11,16 +11,16 @@
     "portfolio"
   ],
   "release": {
-    "version": "3.6.1",
-    "minWealthfolioVersion": "3.6.1",
-    "sdkVersion": "3.6.1",
+    "version": "3.6.2",
+    "minWealthfolioVersion": "3.6.2",
+    "sdkVersion": "3.6.2",
     "critical": false,
     "breaking": false,
-    "notes": "Requires Wealthfolio 3.6.1 or later.",
+    "notes": "Requires Wealthfolio 3.6.2 or later.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/investment-fees-tracker-addon/CHANGELOG.md"
   },
   "distribution": {
-    "r2Path": "investment-fees-tracker-addon/3.6.0/investment-fees-tracker-addon.zip"
+    "r2Path": "investment-fees-tracker-addon/3.6.2/investment-fees-tracker-addon.zip"
   },
   "media": {
     "coverLight": "assets/cover-light.webp",

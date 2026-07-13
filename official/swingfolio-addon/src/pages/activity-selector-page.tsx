@@ -113,7 +113,7 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
       await updatePreferencesAsync({
         selectedActivityIds: Array.from(selectedActivities),
       });
-      ctx.api.navigation.navigate("/addons/swingfolio");
+      ctx.api.navigation.navigate("/addons/swingfolio-addon");
     } catch {
       // Save failed — the hook already toasts the error; stay on the page so
       // the selection isn't lost and the user can retry.
@@ -141,7 +141,7 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
           actions={
             <Button
               variant="outline"
-              onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}
+              onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}
             >
               <Icons.ArrowLeft className="mr-2 h-4 w-4" />
               Back to Dashboard
@@ -156,7 +156,7 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
               <p className="text-muted-foreground mb-4">
                 {error?.message || "Unable to load trading activities"}
               </p>
-              <Button onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}>
+              <Button onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}>
                 Back to Dashboard
               </Button>
             </div>
@@ -168,7 +168,10 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
 
   const headerActions = (
     <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-      <Button variant="outline" onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}>
+      <Button
+        variant="outline"
+        onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}
+      >
         <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         Back to Dashboard
       </Button>

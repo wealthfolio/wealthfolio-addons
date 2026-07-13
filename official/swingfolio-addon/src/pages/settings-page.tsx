@@ -65,7 +65,7 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
         actions={
           <Button
             variant="outline"
-            onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}
+            onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}
           >
             <Icons.ArrowLeft className="mr-2 h-4 w-4" />
             Back to Dashboard

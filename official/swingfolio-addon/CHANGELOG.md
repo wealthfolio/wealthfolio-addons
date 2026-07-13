@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.2] - 2026-07-13
+
+### Changed
+
+- Updated for the Wealthfolio 3.6.2 host and SDK.
+- Adopted sandbox-compatible single-root rendering, declarative navigation, and
+  host-provided durable storage for preferences, with a session fallback for
+  hosts without durable storage.
+
 ## [3.6.0] - 2026-07-04
 
 ### Changed

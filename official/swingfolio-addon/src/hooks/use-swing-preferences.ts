@@ -15,6 +15,16 @@ const DEFAULT_PREFERENCES: SwingTradePreferences = {
 };
 
 const PREFERENCES_KEY = "swingfolio_preferences";
+let fallbackPreferences = DEFAULT_PREFERENCES;
+
+interface AddonStorageAPI {
+  get(key: string): Promise<string | null>;
+  set(key: string, value: string): Promise<void>;
+}
+
+function getStorage(ctx: AddonContext): AddonStorageAPI | undefined {
+  return (ctx.api as typeof ctx.api & { storage?: AddonStorageAPI }).storage;
+}
 
 export function useSwingPreferences(ctx: AddonContext) {
   const queryClient = useQueryClient();
@@ -23,16 +33,20 @@ export function useSwingPreferences(ctx: AddonContext) {
     queryKey: ["swing-preferences"],
     queryFn: async (): Promise<SwingTradePreferences> => {
       try {
-        const stored = await ctx.api.storage.get(PREFERENCES_KEY);
-        if (stored) {
-          return { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) };
+        const storage = getStorage(ctx);
+        if (!storage) {
+          return fallbackPreferences;
         }
-        return DEFAULT_PREFERENCES;
+        const stored = await storage.get(PREFERENCES_KEY);
+        if (stored) {
+          fallbackPreferences = { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) };
+        }
+        return fallbackPreferences;
       } catch (error) {
         ctx.api.logger.warn(
           "Failed to load preferences, using defaults: " + (error as Error).message,
         );
-        return DEFAULT_PREFERENCES;
+        return fallbackPreferences;
       }
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -50,13 +64,14 @@ export function useSwingPreferences(ctx: AddonContext) {
       // wipe saved fields.
       let current = queryClient.getQueryData<SwingTradePreferences>(["swing-preferences"]);
       if (!current) {
-        const stored = await ctx.api.storage.get(PREFERENCES_KEY);
+        const stored = await getStorage(ctx)?.get(PREFERENCES_KEY);
         current = stored
           ? { ...DEFAULT_PREFERENCES, ...JSON.parse(stored) }
-          : DEFAULT_PREFERENCES;
+          : fallbackPreferences;
       }
-      const updated = { ...current, ...preferences };
-      await ctx.api.storage.set(PREFERENCES_KEY, JSON.stringify(updated));
+      const updated = { ...(current ?? fallbackPreferences), ...preferences };
+      await getStorage(ctx)?.set(PREFERENCES_KEY, JSON.stringify(updated));
+      fallbackPreferences = updated;
       return updated;
     },
     onSuccess: (data) => {
