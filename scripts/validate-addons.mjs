@@ -13,6 +13,53 @@ function requireField(record, field) {
   }
 }
 
+function validateContributedRoutes(record, manifest) {
+  const routes = manifest.contributes?.routes;
+  if (routes === undefined) {
+    return;
+  }
+
+  const routePaths = new Set();
+  if (!Array.isArray(routes)) {
+    errors.push(`${record.relativePath}: manifest contributes.routes must be an array`);
+    return;
+  }
+
+  routes.forEach((route, index) => {
+    const prefix = `${record.relativePath}: manifest contributes.routes[${index}]`;
+    if (!route || typeof route !== "object") {
+      errors.push(`${prefix} must be an object`);
+      return;
+    }
+
+    const routePath = route.path ?? "";
+    if (typeof routePath !== "string") {
+      errors.push(`${prefix}.path must be a string when present`);
+      return;
+    }
+
+    const hasUnsafeSegment =
+      routePath !== "" &&
+      routePath.split("/").some((segment) => !segment || segment === "." || segment === "..");
+    if (
+      routePath !== routePath.trim() ||
+      routePath.startsWith("/") ||
+      /[\\?#%]/.test(routePath) ||
+      hasUnsafeSegment
+    ) {
+      errors.push(
+        `${prefix}.path must be relative to /addons/<addon-id> without traversal, escapes, queries, or fragments`,
+      );
+    }
+
+    const normalizedPath = routePath.toLowerCase();
+    if (routePaths.has(normalizedPath)) {
+      errors.push(`${prefix}.path duplicates route path "${routePath}"`);
+    }
+    routePaths.add(normalizedPath);
+  });
+}
+
 for (const record of records) {
   const { metadata, manifest, packageJson } = record;
 
@@ -80,9 +127,26 @@ for (const record of records) {
         `${record.relativePath}: manifest sdkVersion "${manifest.sdkVersion}" does not match release sdkVersion "${metadata.release.sdkVersion}"`,
       );
     }
+
+    if (
+      metadata.release?.minWealthfolioVersion &&
+      manifest.minWealthfolioVersion !== metadata.release.minWealthfolioVersion
+    ) {
+      errors.push(
+        `${record.relativePath}: manifest minWealthfolioVersion "${manifest.minWealthfolioVersion}" does not match release minWealthfolioVersion "${metadata.release.minWealthfolioVersion}"`,
+      );
+    }
+
+    validateContributedRoutes(record, manifest);
   }
 
   if (packageJson) {
+    if (manifest?.version && packageJson.version !== manifest.version) {
+      errors.push(
+        `${record.relativePath}: package version "${packageJson.version}" does not match manifest version "${manifest.version}"`,
+      );
+    }
+
     const allDeps = {
       ...packageJson.dependencies,
       ...packageJson.devDependencies,

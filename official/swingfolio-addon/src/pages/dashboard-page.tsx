@@ -206,11 +206,11 @@ export default function DashboardPage({ ctx }: DashboardPageProps) {
   } = useSwingDashboard(ctx, selectedPeriod);
 
   const handleNavigateToActivities = () => {
-    ctx.api.navigation.navigate("/addons/swingfolio/activities");
+    ctx.api.navigation.navigate("/addons/swingfolio-addon/activities");
   };
 
   const handleNavigateToSettings = () => {
-    ctx.api.navigation.navigate("/addons/swingfolio/settings");
+    ctx.api.navigation.navigate("/addons/swingfolio-addon/settings");
   };
 
   if (isLoading || isPending) {

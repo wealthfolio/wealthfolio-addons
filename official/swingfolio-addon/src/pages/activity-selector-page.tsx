@@ -35,7 +35,8 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
   const [selectedActivities, setSelectedActivities] = useState<Set<string>>(new Set());
 
   const { data: activities, isLoading, error } = useSwingActivities(ctx);
-  const { preferences, updatePreferences, isUpdating } = useSwingPreferences(ctx);
+  const { preferences, updatePreferences, updatePreferencesAsync, isUpdating } =
+    useSwingPreferences(ctx);
 
   // Initialize selected activities from preferences
   React.useEffect(() => {
@@ -93,14 +94,30 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
   };
 
   const handleToggleSwingTag = (enabled: boolean) => {
-    updatePreferences({ includeSwingTag: enabled });
+    if (enabled) {
+      // Auto-selection supersedes the manual set: clear it (local state and
+      // persisted ids atomically) so stale hand-picked activities don't linger
+      // alongside the tag-driven selection.
+      setSelectedActivities(new Set());
+      updatePreferences({ includeSwingTag: true, selectedActivityIds: [] });
+      return;
+    }
+    updatePreferences({ includeSwingTag: false });
   };
 
-  const handleSaveSelection = () => {
-    updatePreferences({
-      selectedActivityIds: Array.from(selectedActivities),
-    });
-    ctx.api.navigation.navigate("/addons/swingfolio");
+  const handleSaveSelection = async () => {
+    try {
+      // Navigate only after the write settles: navigating immediately unmounts
+      // this page mid-mutation, which can skip the cache update and leave the
+      // dashboard serving the pre-save selection.
+      await updatePreferencesAsync({
+        selectedActivityIds: Array.from(selectedActivities),
+      });
+      ctx.api.navigation.navigate("/addons/swingfolio-addon");
+    } catch {
+      // Save failed — the hook already toasts the error; stay on the page so
+      // the selection isn't lost and the user can retry.
+    }
   };
 
   const selectedCount = selectedActivities.size;
@@ -124,7 +141,7 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
           actions={
             <Button
               variant="outline"
-              onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}
+              onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}
             >
               <Icons.ArrowLeft className="mr-2 h-4 w-4" />
               Back to Dashboard
@@ -139,7 +156,7 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
               <p className="text-muted-foreground mb-4">
                 {error?.message || "Unable to load trading activities"}
               </p>
-              <Button onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}>
+              <Button onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}>
                 Back to Dashboard
               </Button>
             </div>
@@ -151,7 +168,10 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
 
   const headerActions = (
     <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-      <Button variant="outline" onClick={() => ctx.api.navigation.navigate("/addons/swingfolio")}>
+      <Button
+        variant="outline"
+        onClick={() => ctx.api.navigation.navigate("/addons/swingfolio-addon")}
+      >
         <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         Back to Dashboard
       </Button>
