@@ -1,0 +1,38 @@
+{
+  "id": "schwab-fidelity-importer",
+  "name": "schwab-fidelity-importer",
+  "version": "1.0.0",
+  "description": "Adds a new official addon to import Schwab HSA/IRA and Fidelity HSA CSVs directly into Wealthfolio.",
+  "author": "opensourceholdings.com or git handle cptsparr0w",
+  "main": "dist/addon.js",
+  "sdkVersion": "3.6.2",
+  "minWealthfolioVersion": "3.6.2",
+  "enabled": true,
+  "contributes": {
+    "routes": [{ "id": "schwab-fidelity-importer" }],
+    "links": {
+      "sidebar": [
+        {
+          "id": "schwab-fidelity-importer",
+          "route": "schwab-fidelity-importer",
+          "label": "schwab-fidelity-importer",
+          "icon": "squares-four",
+          "order": 100
+        }
+      ]
+    }
+  },
+  "hostDependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "@wealthfolio/addon-sdk": "^3.6.2",
+    "@wealthfolio/ui": "^3.6.0",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.561.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "recharts": "^3.7.0"
+  },
+  "permissions": [],
+  "keywords": ["wealthfolio", "addon"],
+  "license": "MIT"
+}
