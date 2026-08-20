@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "australia-cgt-addon",
+  "name": "Australia CGT Planner",
+  "description": "Planning and reconciliation estimates for simple Australian capital gains tax workflows, with FIFO parcel matching, income-year summaries, and CSV export for your accountant.",
+  "author": {
+    "name": "Mrassimo",
+    "url": "https://github.com/Mrassimo"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["tax", "australia", "cgt", "planning", "reporting"],
+  "commercialModel": "free",
+  "repository": "https://github.com/Mrassimo/wealthfolio-australia-cgt-addon",
+  "supportUrl": "https://github.com/Mrassimo/wealthfolio-australia-cgt-addon/issues"
+}

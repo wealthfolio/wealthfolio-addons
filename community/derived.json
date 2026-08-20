@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:28:59.484Z",
+  "generatedAt": "2026-08-20T21:30:27.139Z",
   "addons": {
     "asset-and-cash-timeline": {
       "id": "asset-and-cash-timeline",
@@ -51,6 +51,58 @@
         "detail": "Built against SDK 2.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
       },
       "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "australia-cgt-addon": {
+      "id": "australia-cgt-addon",
+      "runtimeId": "australia-cgt-addon",
+      "repository": "https://github.com/Mrassimo/wealthfolio-australia-cgt-addon",
+      "defaultBranch": "main",
+      "commit": "8b32da5d99f749d4d82a43d37ab989ded1b1ff5a",
+      "license": "MIT",
+      "lastPushedAt": "2026-08-11",
+      "manifest": {
+        "name": "Australia CGT Planner",
+        "version": "0.2.0",
+        "sdkVersion": "3.6.2",
+        "minWealthfolioVersion": "3.6.2",
+        "permissions": [
+          {
+            "category": "activities",
+            "purpose": "Read activity history to match acquisition and disposal lots"
+          },
+          {
+            "category": "accounts",
+            "purpose": "Read account names and currencies for tax-report grouping"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Read current holdings for unrealized capital gains preview"
+          },
+          {
+            "category": "network",
+            "purpose": "Fetch the public ABS quarterly CPI series used for indexation planning inputs"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": true,
+        "externalServices": [
+          {
+            "host": "data.api.abs.gov.au"
+          }
+        ],
+        "basis": "The addon requests the network permission and may reach the hosts listed above, subject to your approval at install time."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.6.2."
+      },
+      "notices": [
+        "not-financial-advice",
+        "not-tax-advice"
+      ],
       "problems": [],
       "warnings": []
     },
