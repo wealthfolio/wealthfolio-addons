@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:28:59.484Z",
+  "generatedAt": "2026-08-21T00:34:15.159Z",
   "addons": {
     "asset-and-cash-timeline": {
       "id": "asset-and-cash-timeline",
@@ -318,6 +318,53 @@
       "notices": [
         "not-financial-advice",
         "not-investment-advice"
+      ],
+      "problems": [],
+      "warnings": []
+    },
+    "wealth-tax": {
+      "id": "wealth-tax",
+      "runtimeId": "wealth-tax",
+      "repository": "https://github.com/advenacodex/wealth-tax",
+      "defaultBranch": "main",
+      "commit": "78649d4c874a7c58ea3c78dd1cfb97a87f7e1678",
+      "license": "MIT",
+      "lastPushedAt": "2026-06-10",
+      "manifest": {
+        "name": "WealthTax",
+        "version": "1.0.0",
+        "sdkVersion": "3.0.0",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "activities",
+            "purpose": "Read full activity history to compute FIFO cost basis and realized gains"
+          },
+          {
+            "category": "accounts",
+            "purpose": "Read account groups for group-level FIFO pooling and account names"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read the base currency for displaying converted amounts"
+          },
+          {
+            "category": "ui",
+            "purpose": "Add a sidebar entry and page for the tax report"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 3.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [
+        "not-tax-advice"
       ],
       "problems": [],
       "warnings": []

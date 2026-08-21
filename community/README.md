@@ -16,6 +16,7 @@ Listing requirements and the publisher attestation are in
 | Lunch Money Addon | elson8012 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/elson/lunchmoney-addon) |
 | Wealthfolio Rebalancer | ibalboteo | pending | none | SDK 3.6+ | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
 | Value Averaging Addon | wujoe | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
+| WealthTax | advenacodex | active | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/advenacodex/wealth-tax) |
 
 Licence and runtime are **derived** from each publisher's repository, not
 declared here — see [community/derived.json](derived.json), refreshed with
