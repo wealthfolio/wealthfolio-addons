@@ -97,8 +97,7 @@ performance with detailed analytics, calendar views, and performance metrics.
 
 ## Data Privacy & Security
 
-- All preferences and selections are stored securely using Wealthfolio's
-  encrypted storage
+- Preferences and selections use Wealthfolio's durable, addon-scoped storage
 - No data is transmitted outside of your Wealthfolio instance
 - Full privacy protection for sensitive financial information
 
@@ -106,19 +105,28 @@ performance with detailed analytics, calendar views, and performance metrics.
 
 - **Activities**: Read access to BUY/SELL transactions
 - **Portfolio**: Read access to holdings for unrealized P/L calculations
-- **Accounts**: Read access for filtering and analysis
-- **Assets**: Read access for symbol and price information
+- **Currency**: Read access to exchange rates and currency data
 - **Settings**: Read access for currency and timezone preferences
-- **Secrets**: Secure storage for user preferences
+
+Storage, UI integration, query caching, packaged assets, toast notifications,
+and logging are baseline capabilities in Wealthfolio 3.7 and do not require
+manifest permissions. This addon's published 3.6.2 manifest retains its legacy
+UI permission entry for release compatibility.
 
 ## Technical Details
 
 ### Architecture
 
 - Built with React and TypeScript
-- Uses React Query for efficient data management
+- Uses an addon-scoped React Query client for efficient data management
 - Recharts for performance visualizations
 - Date-fns for date calculations and formatting
+
+### Development
+
+`pnpm dev` rebuilds the addon continuously. `pnpm dev:server` serves the
+complete runtime package to a Wealthfolio 3.7 host with hot reload. The
+published 3.6.2 bundle itself remains runtime-compatible.
 
 ### Trade Matching Engine
 

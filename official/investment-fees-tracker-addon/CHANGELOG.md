@@ -7,6 +7,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.2] - 2026-07-13
+
+### Changed
+
+- Updated for the Wealthfolio 3.6.2 host and SDK.
+- Adopted sandbox-compatible single-root rendering and declarative, host-owned
+  navigation.
+
+## [3.6.0] - 2026-07-04
+
+### Changed
+
+- Rebuilt against the Wealthfolio 3.6.0 SDK. Requires Wealthfolio 3.6.0 or later.
+
+## [3.5.1] - 2026-06-09
+
+### Fixed
+
+- Fixed an error that could stop the fees dashboard from loading. Fee totals and
+  your portfolio value are now calculated correctly across all of your accounts.
+
+### Changed
+
+- Updated for compatibility with Wealthfolio 3.6.0.
+
 ## [3.0.0] - 2026-02-24
 
 ### Changed

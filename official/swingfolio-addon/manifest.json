@@ -1,12 +1,39 @@
 {
   "id": "swingfolio-addon",
   "name": "Swingfolio: Simple Stock Trading Tracker",
-  "version": "3.4.0",
+  "version": "3.6.2",
   "description": "A simple swing stock trading tracker with performance analytics and calendar views",
   "author": "Wealthfolio",
   "main": "dist/addon.js",
-  "sdkVersion": "3.4.0",
+  "sdkVersion": "3.6.2",
+  "minWealthfolioVersion": "3.6.2",
   "enabled": true,
+  "contributes": {
+    "routes": [
+      { "id": "swingfolio" },
+      { "id": "swingfolio-activities", "path": "activities" },
+      { "id": "swingfolio-settings", "path": "settings" }
+    ],
+    "links": {
+      "sidebar": [
+        {
+          "id": "swingfolio",
+          "route": "swingfolio",
+          "label": "Swingfolio",
+          "icon": "chart-bar",
+          "order": 150
+        }
+      ]
+    }
+  },
+  "hostDependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "@wealthfolio/addon-sdk": "^3.6.2",
+    "@wealthfolio/ui": "^3.6.2",
+    "date-fns": "^4.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
   "permissions": [
     {
       "category": "activities",
@@ -19,7 +46,7 @@
       "purpose": "Access portfolio holdings to calculate unrealized P/L for open positions"
     },
     {
-      "category": "exchangeRates",
+      "category": "currency",
       "functions": ["getAll"],
       "purpose": "Access to exchange rates and currency data"
     },
@@ -30,8 +57,8 @@
     },
     {
       "category": "ui",
-      "functions": ["sidebar.addItem", "router.add"],
-      "purpose": "Add navigation and routing for swing trading interface"
+      "functions": ["sidebar.addItem", "router.add", "navigation.navigate", "onDisable"],
+      "purpose": "Register and navigate the Swingfolio interface"
     }
   ]
 }

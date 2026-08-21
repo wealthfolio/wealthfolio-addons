@@ -2,25 +2,28 @@
   "$schema": "../../schemas/addon-store.schema.json",
   "id": "swingfolio-addon",
   "trust": "official",
-  "verification": "verified",
   "status": "active",
   "featured": true,
-  "tags": ["analytics", "trading", "calendar"],
+  "tags": [
+    "analytics",
+    "trading",
+    "calendar"
+  ],
   "release": {
-    "version": "3.4.0",
-    "minWealthfolioVersion": "3.4.0",
-    "sdkVersion": "3.4.0",
+    "version": "3.6.2",
+    "minWealthfolioVersion": "3.6.2",
+    "sdkVersion": "3.6.2",
     "critical": false,
     "breaking": false,
-    "notes": "Updated for Wealthfolio 3.4.0 with improved compatibility and refinements.",
+    "notes": "Requires Wealthfolio 3.6.2 or later.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/swingfolio-addon/CHANGELOG.md"
   },
   "distribution": {
-    "r2Path": "swingfolio-addon/3.4.0/swingfolio-addon.zip"
+    "r2Path": "swingfolio-addon/swingfolio-addon-3.6.2.zip"
   },
   "media": {
-    "coverLight": "assets/cover-light.webp",
-    "coverDark": "assets/cover-dark.webp"
+    "coverLight": "media/cover-light.webp",
+    "coverDark": "media/cover-dark.webp"
   },
   "supportUrl": "https://github.com/wealthfolio/wealthfolio-addons/issues"
 }

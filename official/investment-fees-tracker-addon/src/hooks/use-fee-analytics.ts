@@ -34,8 +34,19 @@ export function useFeeAnalytics({ ctx, period, enabled = true }: UseFeeAnalytics
         throw new Error("Activities not available");
       }
 
-      // Get portfolio data
-      const holdings = await ctx.api.portfolio.getHoldings("TOTAL");
+      // Get portfolio data. The legacy "TOTAL" aggregate accountId was removed in
+      // the 3.x data-model refactor (getHoldings now resolves a single real
+      // account and returns [] for an unknown id), so aggregate holdings across
+      // every account referenced by the activities instead.
+      const accountIds = [...new Set(activities.map((activity) => activity.accountId))];
+      const perAccount = await Promise.all(
+        accountIds.map((accountId) =>
+          ctx.api.portfolio.getHoldings(accountId).catch(() => []),
+        ),
+      );
+      const holdings = Array.from(
+        new Map(perAccount.flat().map((holding) => [holding.id, holding])).values(),
+      );
 
       // Calculate total portfolio value using base currency values
       const portfolioValue = holdings.reduce((sum, holding) => {

@@ -2,25 +2,27 @@
   "$schema": "../../schemas/addon-store.schema.json",
   "id": "goal-progress-tracker-addon",
   "trust": "official",
-  "verification": "verified",
   "status": "active",
   "featured": true,
-  "tags": ["planning", "goals"],
+  "tags": [
+    "planning",
+    "goals"
+  ],
   "release": {
-    "version": "3.4.0",
-    "minWealthfolioVersion": "3.4.0",
-    "sdkVersion": "3.4.0",
+    "version": "3.6.2",
+    "minWealthfolioVersion": "3.6.2",
+    "sdkVersion": "3.6.2",
     "critical": false,
     "breaking": false,
-    "notes": "Updated for Wealthfolio 3.4.0 with improved compatibility and refinements.",
+    "notes": "Requires Wealthfolio 3.6.2 or later.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/goal-progress-tracker-addon/CHANGELOG.md"
   },
   "distribution": {
-    "r2Path": "goal-progress-tracker-addon/3.4.0/goal-progress-tracker-addon.zip"
+    "r2Path": "goal-progress-tracker-addon/goal-progress-tracker-addon-3.6.2.zip"
   },
   "media": {
-    "coverLight": "assets/cover-light.webp",
-    "coverDark": "assets/cover-dark.webp"
+    "coverLight": "media/cover-light.webp",
+    "coverDark": "media/cover-dark.webp"
   },
   "supportUrl": "https://github.com/wealthfolio/wealthfolio-addons/issues"
 }

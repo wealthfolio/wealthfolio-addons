@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schemas/addon-store.schema.json",
-  "id": "lunch-money-addon",
+  "id": "lunchmoney-addon",
   "name": "Lunch Money Addon",
   "description": "Imports accounts and balances from Lunch Money into Wealthfolio with a one-click update.",
   "author": {
@@ -8,8 +8,7 @@
     "url": "https://github.com/elson"
   },
   "trust": "community",
-  "verification": "unverified",
-  "status": "active",
+  "status": "pending",
   "tags": ["import", "integration"],
   "repository": "https://github.com/elson/lunchmoney-addon"
 }

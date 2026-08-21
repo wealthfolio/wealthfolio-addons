@@ -8,8 +8,8 @@
     "url": "https://github.com/advenacodex"
   },
   "trust": "community",
-  "verification": "unverified",
   "status": "active",
   "tags": ["taxes", "fifo", "reporting"],
+  "commercialModel": "free",
   "repository": "https://github.com/advenacodex/wealth-tax"
 }

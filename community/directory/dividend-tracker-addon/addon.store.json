@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "dividend-tracker-addon",
+  "name": "Dividends Importer",
+  "description": "Finds and adds missing dividend activities by fetching historical data from Yahoo Finance.",
+  "author": {
+    "name": "kwaich",
+    "url": "https://github.com/kwaich"
+  },
+  "trust": "community",
+  "status": "pending",
+  "tags": ["dividends", "import"],
+  "repository": "https://github.com/kwaich/dividend-tracker"
+}

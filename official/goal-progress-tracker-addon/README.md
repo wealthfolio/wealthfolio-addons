@@ -63,8 +63,11 @@ To work on this addon:
 # Install dependencies
 pnpm install
 
-# Start development mode (watches for changes)
+# Rebuild continuously without connecting to Wealthfolio
 pnpm dev
+
+# Serve the complete runtime package to Wealthfolio with hot reload
+pnpm dev:server
 
 # Build for production
 pnpm build
@@ -86,7 +89,8 @@ This addon demonstrates how to:
 - Build interactive UI components with tooltips and searchable dropdowns
 - Handle loading states, error states, and empty states gracefully
 - Integrate with the Wealthfolio sidebar navigation and routing system
-- Use the shared QueryClient for optimal data caching and performance
+- Use the addon-scoped QueryClient; string-key invalidation and refetch
+  operations are mirrored to the host cache
 
 ## Permissions Required
 
@@ -94,6 +98,11 @@ This addon demonstrates how to:
 - **Portfolio Access**: To read current holdings, account balances, and
   calculate investment progress
 - **Accounts Access**: To access account information for portfolio calculations
+
+UI integration, query caching, storage, packaged assets, toast notifications,
+and logging are baseline capabilities in Wealthfolio 3.7 and do not require
+manifest permissions. This addon's published 3.6.2 manifest retains its legacy
+UI permission entry for release compatibility.
 
 ## Settings
 

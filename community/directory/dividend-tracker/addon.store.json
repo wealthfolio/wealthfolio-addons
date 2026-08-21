@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schemas/addon-store.schema.json",
-  "id": "wealthfolio-dividend-tracker",
+  "id": "dividend-tracker",
   "name": "Wealthfolio Dividend Tracker",
   "description": "Dividend tracking by year, month, and security with stacked bar charts and per-account tables.",
   "author": {
@@ -8,8 +8,7 @@
     "url": "https://github.com/ragnarok-89"
   },
   "trust": "community",
-  "verification": "unverified",
-  "status": "active",
+  "status": "pending",
   "tags": ["dividends", "analytics"],
   "repository": "https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker"
 }
