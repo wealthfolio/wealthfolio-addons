@@ -1,95 +1,80 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { AddonContext, AddonEnableFunction } from "@wealthfolio/addon-sdk";
-import React from "react";
-import { SwingfolioIcon } from "./components/swingfolio-icon";
+import type {
+  AddonContext,
+  AddonEnableFunction,
+  AddonRouteRenderContext,
+} from "@wealthfolio/addon-sdk";
+import { createRoot, type Root } from "react-dom/client";
 import ActivitySelectorPage from "./pages/activity-selector-page";
 import DashboardPage from "./pages/dashboard-page";
 import SettingsPage from "./pages/settings-page";
 
-// Main addon component wrapper
-function SwingfolioAddon({ ctx }: { ctx: AddonContext }) {
-  return (
-    <div className="swingfolio-addon">
-      <QueryClientProvider client={ctx.api.query.getClient() as QueryClient}>
-        <DashboardPage ctx={ctx} />
-      </QueryClientProvider>
-    </div>
-  );
-}
+// One React root is shared across all three routes. Creating a separate root
+// for each route leaves orphaned trees in the sandbox after navigation.
+let addonCtx: AddonContext | undefined;
+let reactRoot: Root | undefined;
+let rootElement: HTMLElement | undefined;
+
+const withProviders = (page: React.ReactNode) => (
+  <div className="swingfolio-addon">
+    <QueryClientProvider client={addonCtx!.api.query.getClient() as QueryClient}>
+      {page}
+    </QueryClientProvider>
+  </div>
+);
+
+const renderRoute = (getPage: () => React.ReactNode) =>
+  function render({ root }: AddonRouteRenderContext) {
+    if (!reactRoot || rootElement !== root) {
+      reactRoot?.unmount();
+      reactRoot = createRoot(root);
+      rootElement = root;
+    }
+    reactRoot.render(withProviders(getPage()));
+  };
+
+const renderDashboard = renderRoute(() => <DashboardPage ctx={addonCtx!} />);
+const renderActivities = renderRoute(() => <ActivitySelectorPage ctx={addonCtx!} />);
+const renderSettings = renderRoute(() => <SettingsPage ctx={addonCtx!} />);
 
 // Addon enable function - called when the addon is loaded
 const enable: AddonEnableFunction = (context) => {
+  addonCtx = context;
+  let removeSidebarItem: (() => void) | undefined;
   context.api.logger.info("📈 Swingfolio addon is being enabled!");
 
-  // Store references to items for cleanup
-  const addedItems: { remove: () => void }[] = [];
-
   try {
-    // Add sidebar navigation item
+    // Current hosts ingest these routes from manifest.json before the addon
+    // boots. Each runtime id MUST match its declared contributes.routes id.
+    context.router.add({
+      id: "swingfolio",
+      path: "/addons/swingfolio-addon",
+      render: renderDashboard,
+    });
+
+    context.router.add({
+      id: "swingfolio-activities",
+      path: "/addons/swingfolio-addon/activities",
+      render: renderActivities,
+    });
+
+    context.router.add({
+      id: "swingfolio-settings",
+      path: "/addons/swingfolio-addon/settings",
+      render: renderSettings,
+    });
+
+    // Current hosts use the durable manifest contribution. Registering the
+    // same id at runtime keeps earlier 3.6.1 builds compatible; current hosts
+    // deduplicate it in favor of the durable entry.
     const sidebarItem = context.sidebar.addItem({
       id: "swingfolio",
       label: "Swingfolio",
-      icon: <SwingfolioIcon />,
-      route: "/addons/swingfolio",
+      icon: "chart-bar",
+      route: "/addons/swingfolio-addon",
       order: 150,
     });
-    addedItems.push(sidebarItem);
-
-    // Create wrapper component with QueryClientProvider using shared client
-    const SwingfolioWrapper = () => {
-      const sharedQueryClient = context.api.query.getClient() as QueryClient;
-      return (
-        <QueryClientProvider client={sharedQueryClient}>
-          <SwingfolioAddon ctx={context} />
-        </QueryClientProvider>
-      );
-    };
-
-    // Register main dashboard route
-
-    // Register route
-    context.router.add({
-      path: "/addons/swingfolio",
-      component: React.lazy(() =>
-        Promise.resolve({
-          default: SwingfolioWrapper,
-        }),
-      ),
-    });
-
-    // Register activity selector route
-    context.router.add({
-      path: "/addons/swingfolio/activities",
-      component: React.lazy(() =>
-        Promise.resolve({
-          default: () => {
-            const sharedQueryClient = context.api.query.getClient() as QueryClient;
-            return (
-              <QueryClientProvider client={sharedQueryClient}>
-                <ActivitySelectorPage ctx={context} />
-              </QueryClientProvider>
-            );
-          },
-        }),
-      ),
-    });
-
-    // Register settings route
-    context.router.add({
-      path: "/addons/swingfolio/settings",
-      component: React.lazy(() =>
-        Promise.resolve({
-          default: () => {
-            const sharedQueryClient = context.api.query.getClient() as QueryClient;
-            return (
-              <QueryClientProvider client={sharedQueryClient}>
-                <SettingsPage ctx={context} />
-              </QueryClientProvider>
-            );
-          },
-        }),
-      ),
-    });
+    removeSidebarItem = () => sidebarItem.remove();
 
     context.api.logger.info("Swingfolio addon enabled successfully");
   } catch (error) {
@@ -97,19 +82,13 @@ const enable: AddonEnableFunction = (context) => {
     throw error;
   }
 
-  // Register cleanup callback
   context.onDisable(() => {
     context.api.logger.info("🛑 Swingfolio addon is being disabled");
-
-    // Remove all sidebar items
-    addedItems.forEach((item) => {
-      try {
-        item.remove();
-      } catch (error) {
-        context.api.logger.error("Error removing sidebar item: " + (error as Error).message);
-      }
-    });
-
+    removeSidebarItem?.();
+    reactRoot?.unmount();
+    reactRoot = undefined;
+    rootElement = undefined;
+    addonCtx = undefined;
     context.api.logger.info("Swingfolio addon disabled successfully");
   });
 };

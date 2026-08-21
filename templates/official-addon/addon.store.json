@@ -2,25 +2,24 @@
   "$schema": "../../schemas/addon-store.schema.json",
   "id": "my-official-addon",
   "trust": "official",
-  "verification": "verified",
   "status": "active",
   "featured": true,
   "tags": ["analytics"],
   "release": {
     "version": "1.0.0",
-    "minWealthfolioVersion": "3.4.0",
-    "sdkVersion": "3.4.0",
+    "minWealthfolioVersion": "3.7.0",
+    "sdkVersion": "3.7.0",
     "critical": false,
     "breaking": false,
     "notes": "Initial official release.",
     "changelogUrl": "https://github.com/wealthfolio/wealthfolio-addons/tree/main/official/my-official-addon/CHANGELOG.md"
   },
   "distribution": {
-    "r2Path": "my-official-addon/1.0.0/my-official-addon.zip"
+    "r2Path": "my-official-addon/my-official-addon-1.0.0.zip"
   },
   "media": {
-    "coverLight": "assets/cover-light.webp",
-    "coverDark": "assets/cover-dark.webp"
+    "coverLight": "media/cover-light.webp",
+    "coverDark": "media/cover-dark.webp"
   },
   "supportUrl": "https://github.com/wealthfolio/wealthfolio-addons/issues"
 }

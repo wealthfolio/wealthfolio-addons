@@ -33,31 +33,38 @@ remain outside this repo. Do not add database rows or dynamic store metrics here
    `@wealthfolio/addon-sdk`, `@wealthfolio/addon-dev-tools`, and
    `@wealthfolio/ui`.
 4. Keep `manifest.json`, `package.json`, and `CHANGELOG.md` versions aligned.
-5. Add 16:9 light and dark screenshots under `assets/` and reference them from
+5. Add wide landscape light and dark screenshots under `media/` — not
+   `assets/`, which is bundled into the shipped addon — and reference them from
    `addon.store.json`.
 6. Run `pnpm validate:addons`, `pnpm type-check:official`, and
    `pnpm bundle:official`.
 
 ## Migrating A Community Addon PR
 
-For discovery-only listing, create:
+Community addons are directory listings. Create one file:
 
 ```text
 community/directory/<addon-id>/addon.store.json
 ```
 
-For a verified installable addon, create:
+Wealthfolio does not build or host community artifacts, so there is no pinned
+source, no `distribution` block, and no screenshots to submit.
 
-```text
-community/verified/<addon-id>/addon.store.json
-community/verified/<addon-id>/assets/cover-light.webp
-community/verified/<addon-id>/assets/cover-dark.webp
-```
+The listing itself is short: a public GitHub repository, the publisher, a plain
+description, tags, and `commercialModel`. Licence, data handling, compatibility,
+last activity, and the standard notices are **derived** from the publisher's
+repository into `community/derived.json` — do not declare them.
 
-Verified community submissions must include a public repository, pinned release
-tag, pinned commit SHA, declared permissions, release notes, support URL, and
-screenshots. Wealthfolio should build the installable artifact from pinned
-source before publishing it through the catalog/store release pipeline.
+A listing cannot be published until its repository carries a licence and its
+manifest declares `sdkVersion` 3.6 or newer. Before 3.6 an addon could reach the
+network without declaring it, so its manifest cannot show where data goes, and
+declaring `dataHandling` is not an alternative to rebuilding. See
+[POLICIES.md](../POLICIES.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+The earlier Verified Community tier has been removed. A PR that targeted
+`community/verified/` becomes a directory listing: drop `verification`,
+`distribution`, `media`, `source`, and `release`, and add the publisher
+disclosures.
 
 ## Command Mapping
 
@@ -67,6 +74,7 @@ source before publishing it through the catalog/store release pipeline.
 | `pnpm bundle:addons` in the app repo | `pnpm bundle:official` in this repo               |
 | Manual community README edits        | Edit `addon.store.json`, then run `pnpm generate` |
 | Manual metadata review only          | `pnpm validate:addons`                            |
+| Reading a publisher's repo by hand   | `pnpm derive:community`                           |
 
 ## API Migration
 
@@ -86,17 +94,22 @@ Keep API compatibility in sync with `manifest.json`:
 Repo-local screenshot files are referenced from `addon.store.json` as:
 
 ```text
-assets/cover-light.webp
-assets/cover-dark.webp
+media/cover-light.webp
+media/cover-dark.webp
 ```
 
-The current catalog site expects CDN screenshots at:
+Official covers live under `media/`, not `assets/`: the package script bundles
+`assets/` into the shipped addon, and storefront art has no business inside a
+user's install.
+
+The catalog site expects CDN screenshots under version-less names, so a release
+never orphans a listing's screenshot:
 
 ```text
-https://assets.wealthfolio.app/images/addons/<addon-id>-<version>.webp
-https://assets.wealthfolio.app/images/addons/<addon-id>-<version>-dark.webp
+https://assets.wealthfolio.app/images/addons/<addon-id>.webp
+https://assets.wealthfolio.app/images/addons/<addon-id>-dark.webp
 ```
 
-The release pipeline should copy or transform repo-local screenshots into that
-catalog naming convention. When an addon version changes, publish matching
-screenshots for the new version.
+Upload the repo-local cover under the version-less name. Re-upload only when
+the addon's interface actually changes — not on every release, which is what
+orphaned every official screenshot when the addons moved to 3.6.

@@ -4,28 +4,66 @@
   "title": "Wealthfolio Addon Store Metadata",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "trust", "verification", "status", "tags"],
+  "required": ["id", "trust", "status", "tags"],
+  "$defs": {
+    "httpsUrl": {
+      "description": "HTTPS URL without embedded credentials.",
+      "type": "string",
+      "maxLength": 500,
+      "pattern": "^https://[^\\s/?#@]+(?:[/?#][^\\s]*)?$"
+    },
+    "githubRepoUrl": {
+      "description": "Canonical GitHub repository URL. No query, fragment, or trailing path — the value is rendered as a link and read by the derivation.",
+      "type": "string",
+      "maxLength": 200,
+      "pattern": "^https://github\\.com/[A-Za-z0-9][A-Za-z0-9._-]*/[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "semver": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+    },
+    "plainText": {
+      "description": "Publisher-supplied text rendered into Markdown and HTML. No markup, no line breaks.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^\\n\\r\\t<>|`]+$"
+    },
+    "slug": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+[a-z0-9-]*[a-z0-9]$"
+    }
+  },
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 200
     },
     "id": {
-      "type": "string",
-      "pattern": "^[a-z0-9]+[a-z0-9-]*[a-z0-9]$"
+      "$ref": "#/$defs/slug"
     },
     "name": {
+      "description": "Plain text. No markup, no line breaks.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 60,
+      "pattern": "^[^\\n\\r\\t<>|`]+$"
     },
     "description": {
+      "description": "Plain text only. Rendered without markup by the website and escaped in generated tables.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 300,
+      "pattern": "^[^\\n\\r\\t<>|`]+$"
     },
     "author": {
+      "description": "The publisher responsible for the addon, not merely the GitHub account that opened the pull request.",
       "oneOf": [
         {
+          "$ref": "#/$defs/plainText",
           "type": "string",
-          "minLength": 1
+          "maxLength": 80
         },
         {
           "type": "object",
@@ -33,44 +71,118 @@
           "required": ["name"],
           "properties": {
             "name": {
+              "$ref": "#/$defs/plainText",
               "type": "string",
-              "minLength": 1
+              "maxLength": 80
             },
             "url": {
-              "type": "string",
-              "format": "uri"
+              "$ref": "#/$defs/httpsUrl"
             }
           }
         }
       ]
     },
     "trust": {
+      "description": "official: built, distributed, and supported by Wealthfolio. community: independently published, linked from the directory only.",
       "enum": ["official", "community"]
     },
-    "verification": {
-      "enum": ["verified", "unverified"]
-    },
     "status": {
-      "enum": ["active", "coming-soon", "deprecated", "inactive"]
+      "description": "pending: submitted but not yet confirmed by the publisher; excluded from the public directory.",
+      "enum": ["active", "pending", "coming-soon", "deprecated", "inactive"]
     },
     "featured": {
       "type": "boolean"
     },
     "tags": {
       "type": "array",
+      "maxItems": 8,
       "items": {
-        "type": "string",
-        "pattern": "^[a-z0-9]+[a-z0-9-]*[a-z0-9]$"
+        "$ref": "#/$defs/slug"
       },
       "uniqueItems": true
     },
     "repository": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/githubRepoUrl"
     },
     "supportUrl": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/httpsUrl"
+    },
+    "privacyUrl": {
+      "$ref": "#/$defs/httpsUrl"
+    },
+    "license": {
+      "description": "Optional override. Normally detected from the repository and recorded in community/derived.json.",
+      "enum": [
+        "AGPL-3.0-only",
+        "AGPL-3.0-or-later",
+        "Apache-2.0",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "BSL-1.0",
+        "CC0-1.0",
+        "EPL-2.0",
+        "GPL-2.0-only",
+        "GPL-2.0-or-later",
+        "GPL-3.0-only",
+        "GPL-3.0-or-later",
+        "ISC",
+        "LGPL-2.1-only",
+        "LGPL-2.1-or-later",
+        "LGPL-3.0-only",
+        "LGPL-3.0-or-later",
+        "MIT",
+        "MPL-2.0",
+        "Unlicense",
+        "Zlib"
+      ]
+    },
+    "minWealthfolioVersion": {
+      "description": "Optional override. Normally read from the addon manifest and recorded in community/derived.json.",
+      "$ref": "#/$defs/semver"
+    },
+    "commercialModel": {
+      "description": "The one fact no repository reveals. external-service-required does not imply the required service is free.",
+      "enum": ["free", "paid", "subscription", "external-service-required"]
+    },
+    "notices": {
+      "description": "Derived from tags by scripts/lib/notices.mjs. Listed here only to add a notice the tags do not imply.",
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["not-tax-advice", "not-investment-advice", "not-financial-advice"]
+      }
+    },
+    "dataHandling": {
+      "description": "Optional publisher clarification, for anything the manifest cannot express. Licence, network access, and compatibility are derived from the repository instead (community/derived.json); the install dialog remains the authoritative permission surface.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["leavesDevice", "externalServices"],
+      "properties": {
+        "leavesDevice": {
+          "description": "true when any data is sent off the user's device for any reason.",
+          "type": "boolean"
+        },
+        "externalServices": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "url"],
+            "properties": {
+              "name": {
+                "$ref": "#/$defs/plainText",
+                "type": "string",
+                "maxLength": 80
+              },
+              "url": {
+                "$ref": "#/$defs/httpsUrl"
+              }
+            }
+          }
+        }
+      }
     },
     "source": {
       "type": "object",
@@ -78,16 +190,18 @@
       "required": ["repository"],
       "properties": {
         "repository": {
-          "type": "string",
-          "format": "uri"
+          "$ref": "#/$defs/githubRepoUrl"
         },
         "tag": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 100
         },
         "commit": {
           "type": "string",
-          "minLength": 7
+          "minLength": 7,
+          "maxLength": 40,
+          "pattern": "^[a-f0-9]{7,40}$"
         }
       }
     },
@@ -97,16 +211,13 @@
       "required": ["version", "minWealthfolioVersion"],
       "properties": {
         "version": {
-          "type": "string",
-          "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+          "$ref": "#/$defs/semver"
         },
         "minWealthfolioVersion": {
-          "type": "string",
-          "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+          "$ref": "#/$defs/semver"
         },
         "sdkVersion": {
-          "type": "string",
-          "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+          "$ref": "#/$defs/semver"
         },
         "critical": {
           "type": "boolean"
@@ -115,25 +226,28 @@
           "type": "boolean"
         },
         "notes": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 1000
         },
         "changelogUrl": {
-          "type": "string",
-          "format": "uri"
+          "$ref": "#/$defs/httpsUrl"
         }
       }
     },
     "distribution": {
+      "description": "Wealthfolio-hosted artifact. Official addons only.",
       "type": "object",
       "additionalProperties": false,
+      "required": ["r2Path"],
       "properties": {
         "r2Path": {
+          "description": "Canonical key: {id}/{id}-{version}.zip",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 200
         },
         "downloadUrl": {
-          "type": "string",
-          "format": "uri"
+          "$ref": "#/$defs/httpsUrl"
         },
         "sha256": {
           "type": "string",
@@ -147,11 +261,13 @@
       "properties": {
         "coverLight": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 200
         },
         "coverDark": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 200
         }
       }
     }
@@ -159,28 +275,100 @@
   "allOf": [
     {
       "if": {
-        "properties": {
-          "verification": {
-            "const": "verified"
-          }
-        },
-        "required": ["verification"]
+        "properties": { "trust": { "const": "official" } },
+        "required": ["trust"]
       },
       "then": {
-        "required": ["release", "distribution", "media"]
+        "required": ["release", "distribution", "media"],
+        "properties": {
+          "media": {
+            "type": "object",
+            "required": ["coverLight", "coverDark"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "trust": { "const": "community" } },
+        "required": ["trust"]
+      },
+      "then": {
+        "required": ["name", "description", "author", "repository"],
+        "not": { "required": ["distribution"] }
       }
     },
     {
       "if": {
         "properties": {
-          "trust": {
-            "const": "community"
-          }
+          "trust": { "const": "community" },
+          "status": { "const": "active" }
         },
-        "required": ["trust"]
+        "required": ["trust", "status"]
       },
       "then": {
-        "required": ["name", "description", "author", "repository"]
+        "required": ["commercialModel"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataHandling": {
+            "type": "object",
+            "properties": { "leavesDevice": { "type": "boolean", "const": true } },
+            "required": ["leavesDevice"]
+          }
+        },
+        "required": ["dataHandling"]
+      },
+      "then": {
+        "required": ["privacyUrl"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataHandling": {
+            "type": "object",
+            "properties": { "leavesDevice": { "type": "boolean", "const": false } },
+            "required": ["leavesDevice"]
+          }
+        },
+        "required": ["dataHandling"]
+      },
+      "then": {
+        "properties": {
+          "dataHandling": {
+            "type": "object",
+            "properties": {
+              "externalServices": { "type": "array", "maxItems": 0 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataHandling": {
+            "type": "object",
+            "properties": {
+              "externalServices": { "type": "array", "minItems": 1 }
+            },
+            "required": ["externalServices"]
+          }
+        },
+        "required": ["dataHandling"]
+      },
+      "then": {
+        "properties": {
+          "dataHandling": {
+            "type": "object",
+            "properties": {
+              "leavesDevice": { "type": "boolean", "const": true }
+            }
+          }
+        }
       }
     }
   ]

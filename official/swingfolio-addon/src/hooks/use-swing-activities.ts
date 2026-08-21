@@ -1,10 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import type { AddonContext } from "@wealthfolio/addon-sdk";
 import type { SwingActivity } from "../types";
 import { useSwingPreferences } from "./use-swing-preferences";
 
 export function useSwingActivities(ctx: AddonContext) {
   const { preferences } = useSwingPreferences(ctx);
+  const { selectedActivityIds } = preferences;
+
+  // isSelected is derived client-side via `select` rather than in the queryFn:
+  // keying the query on selectedActivityIds would re-run the full activities
+  // search over the RPC bridge on every save/clear just to recompute a flag.
+  const selectWithSelection = useCallback(
+    (activities: SwingActivity[]): SwingActivity[] => {
+      const selected = new Set(selectedActivityIds);
+      return activities.map((activity) => ({
+        ...activity,
+        isSelected: selected.has(activity.id),
+      }));
+    },
+    [selectedActivityIds],
+  );
 
   return useQuery({
     queryKey: ["swing-activities", preferences.selectedAccounts, preferences.includeDividends],
@@ -31,10 +47,10 @@ export function useSwingActivities(ctx: AddonContext) {
           { id: "date", desc: true }, // sort by date descending
         );
 
-        // Transform to SwingActivity format
+        // Transform to SwingActivity format (isSelected is filled in by select)
         const swingActivities: SwingActivity[] = response.data.map((activity) => ({
           ...activity,
-          isSelected: preferences.selectedActivityIds.includes(activity.id),
+          isSelected: false,
           hasSwingTag: activity.comment?.toLowerCase().includes("swing") || false,
         }));
 
@@ -44,6 +60,7 @@ export function useSwingActivities(ctx: AddonContext) {
         throw error;
       }
     },
+    select: selectWithSelection,
     enabled: !!ctx.api,
     staleTime: 2 * 60 * 1000, // 2 minutes
   });

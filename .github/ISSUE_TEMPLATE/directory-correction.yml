@@ -1,0 +1,45 @@
+name: Directory correction
+description: Fix a wrong link, description, or status in a community listing
+title: "[directory] "
+labels: ["directory"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this only for ordinary metadata corrections.
+
+        Vulnerabilities, malicious behaviour, privacy problems, and IP
+        complaints go privately to hello@wealthfolio.app — see
+        [SECURITY.md](https://github.com/wealthfolio/wealthfolio-addons/blob/main/SECURITY.md).
+  - type: input
+    id: addon-id
+    attributes:
+      label: Addon id
+      placeholder: my-addon
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What needs correcting
+      options:
+        - Repository link is dead or moved
+        - Description or name is wrong
+        - Addon is abandoned or should be removed
+        - Declared compatibility is wrong
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What is wrong, and what it should say instead.
+    validations:
+      required: true
+  - type: checkboxes
+    id: publisher
+    attributes:
+      label: Are you the publisher?
+      options:
+        - label: I am the publisher of this addon (or authorised to act for them).

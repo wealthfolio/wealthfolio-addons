@@ -68,6 +68,11 @@ export function description(record) {
   return record.metadata.description ?? record.manifest?.description ?? "";
 }
 
+/**
+ * Only official addons are installable from within Wealthfolio. Community
+ * addons are directory listings; their packages are downloaded from the
+ * publisher and installed with "Install from File".
+ */
 export function isInstallable(record) {
-  return record.metadata.verification === "verified" && record.metadata.status === "active";
+  return record.metadata.trust === "official" && record.metadata.status === "active";
 }

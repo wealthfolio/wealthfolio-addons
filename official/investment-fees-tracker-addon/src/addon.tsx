@@ -1,57 +1,61 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import type { AddonContext, AddonEnableFunction } from "@wealthfolio/addon-sdk";
-import { Icons } from "@wealthfolio/ui";
-import React from "react";
+import type {
+  AddonContext,
+  AddonEnableFunction,
+  AddonRouteRenderContext,
+} from "@wealthfolio/addon-sdk";
+import { createRoot, type Root } from "react-dom/client";
 import FeesPage from "./pages/fees-page";
 
-// Main addon component
-function InvestmentFeesTrackerAddon({ ctx }: { ctx: AddonContext }) {
-  return (
-    <div className="investment-fees-tracker-addon">
-      <FeesPage ctx={ctx} />
-    </div>
-  );
+// One React root is shared across every render of this addon route. Creating a
+// new root for each render leaves orphaned trees in the sandbox.
+let addonCtx: AddonContext | undefined;
+let reactRoot: Root | undefined;
+let rootElement: HTMLElement | undefined;
+
+const FeesRoute = () => (
+  <div className="investment-fees-tracker-addon">
+    <QueryClientProvider client={addonCtx!.api.query.getClient() as QueryClient}>
+      <FeesPage ctx={addonCtx!} />
+    </QueryClientProvider>
+  </div>
+);
+
+function renderFees({ root }: AddonRouteRenderContext) {
+  if (!reactRoot || rootElement !== root) {
+    reactRoot?.unmount();
+    reactRoot = createRoot(root);
+    rootElement = root;
+  }
+  reactRoot.render(<FeesRoute />);
 }
 
 // Addon enable function - called when the addon is loaded
 const enable: AddonEnableFunction = (context) => {
+  addonCtx = context;
+  let removeSidebarItem: (() => void) | undefined;
   context.api.logger.info("💰 Investment Fees Tracker addon is being enabled!");
 
-  // Store references to items for cleanup
-  const addedItems: Array<{ remove: () => void }> = [];
-
   try {
-    // Add sidebar navigation item
+    // Current hosts ingest this route from manifest.json before the addon
+    // boots. The runtime id MUST match the declared contributes.routes id.
+    context.router.add({
+      id: "investment-fees-tracker",
+      path: "/addons/investment-fees-tracker-addon",
+      render: renderFees,
+    });
+
+    // Current hosts use the durable manifest contribution. Registering the
+    // same id at runtime keeps earlier 3.6.1 builds compatible; current hosts
+    // deduplicate it in favor of the durable entry.
     const sidebarItem = context.sidebar.addItem({
       id: "investment-fees-tracker",
       label: "Fee Tracker",
-      icon: <Icons.Invoice className="h-5 w-5" />,
-      route: "/addons/investment-fees-tracker",
+      icon: "receipt",
+      route: "/addons/investment-fees-tracker-addon",
       order: 200,
     });
-    addedItems.push(sidebarItem);
-
-    context.api.logger.debug("Sidebar navigation item added successfully");
-
-    // Create wrapper component with QueryClientProvider using shared client
-    const InvestmentFeesTrackerWrapper = () => {
-      const sharedQueryClient = context.api.query.getClient() as QueryClient;
-      return (
-        <QueryClientProvider client={sharedQueryClient}>
-          <InvestmentFeesTrackerAddon ctx={context} />
-        </QueryClientProvider>
-      );
-    };
-
-    // Register route
-    context.router.add({
-      path: "/addons/investment-fees-tracker",
-      component: React.lazy(() =>
-        Promise.resolve({
-          default: InvestmentFeesTrackerWrapper,
-        }),
-      ),
-    });
+    removeSidebarItem = () => sidebarItem.remove();
 
     context.api.logger.debug("Route registered successfully");
     context.api.logger.info("Investment Fees Tracker addon enabled successfully");
@@ -61,19 +65,13 @@ const enable: AddonEnableFunction = (context) => {
     throw error;
   }
 
-  // Register cleanup callback
   context.onDisable(() => {
     context.api.logger.info("🛑 Investment Fees Tracker addon is being disabled");
-
-    // Remove all sidebar items
-    addedItems.forEach((item) => {
-      try {
-        item.remove();
-      } catch (error) {
-        context.api.logger.error("Error removing sidebar item: " + (error as Error).message);
-      }
-    });
-
+    removeSidebarItem?.();
+    reactRoot?.unmount();
+    reactRoot = undefined;
+    rootElement = undefined;
+    addonCtx = undefined;
     context.api.logger.info("Investment Fees Tracker addon disabled successfully");
   });
 };

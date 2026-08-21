@@ -1,5 +1,5 @@
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import { type AddonContext, type Goal } from "@wealthfolio/addon-sdk";
+import { type AddonContext, type AddonRouteRenderContext, type Goal } from "@wealthfolio/addon-sdk";
 import {
   Button,
   EmptyPlaceholder,
@@ -9,10 +9,32 @@ import {
   PageHeader,
   useBalancePrivacy,
 } from "@wealthfolio/ui";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import { GoalSelector, HelpPopover, InvestmentCalendar } from "./components";
 import { useGoalProgress } from "./hooks";
 import { toFiniteAmount } from "./lib/utils";
+
+// One React root is shared across every render of this addon route. Creating a
+// new root for each render leaves orphaned trees in the sandbox.
+let addonCtx: AddonContext | undefined;
+let reactRoot: Root | undefined;
+let rootElement: HTMLElement | undefined;
+
+const TargetTrackerRoute = () => (
+  <QueryClientProvider client={addonCtx!.api.query.getClient() as QueryClient}>
+    <InvestmentTargetTracker ctx={addonCtx!} />
+  </QueryClientProvider>
+);
+
+function renderTargetTracker({ root }: AddonRouteRenderContext) {
+  if (!reactRoot || rootElement !== root) {
+    reactRoot?.unmount();
+    reactRoot = createRoot(root);
+    rootElement = root;
+  }
+  reactRoot.render(<TargetTrackerRoute />);
+}
 
 // Main Investment Target Tracker component
 function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
@@ -177,43 +199,30 @@ function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
  * - Interactive milestone tracking
  */
 export default function enable(ctx: AddonContext) {
+  addonCtx = ctx;
+  let removeSidebarItem: (() => void) | undefined;
   ctx.api.logger.info("🎯 Investment Target Tracker addon is being enabled!");
 
-  // Store references to items for cleanup
-  const addedItems: Array<{ remove: () => void }> = [];
-
   try {
-    // Add sidebar navigation item
+    // Current hosts ingest this route from manifest.json before the addon
+    // boots. The runtime id MUST match the declared contributes.routes id.
+    ctx.router.add({
+      id: "investment-target-tracker",
+      path: "/addons/goal-progress-tracker-addon",
+      render: renderTargetTracker,
+    });
+
+    // Current hosts use the durable manifest contribution. Registering the
+    // same id at runtime keeps earlier 3.6.1 builds compatible; current hosts
+    // deduplicate it in favor of the durable entry.
     const sidebarItem = ctx.sidebar.addItem({
       id: "investment-target-tracker",
       label: "Target Tracker",
-      icon: <Icons.Goals className="h-5 w-5" />,
-      route: "/addon/investment-target-tracker",
+      icon: "calendar-dots",
+      route: "/addons/goal-progress-tracker-addon",
       order: 200,
     });
-    addedItems.push(sidebarItem);
-
-    ctx.api.logger.debug("Sidebar navigation item added successfully");
-
-    // Create wrapper component with QueryClientProvider using shared client
-    const InvestmentTargetTrackerWrapper = () => {
-      const sharedQueryClient = ctx.api.query.getClient() as QueryClient;
-      return (
-        <QueryClientProvider client={sharedQueryClient}>
-          <InvestmentTargetTracker ctx={ctx} />
-        </QueryClientProvider>
-      );
-    };
-
-    // Register route
-    ctx.router.add({
-      path: "/addon/investment-target-tracker",
-      component: React.lazy(() =>
-        Promise.resolve({
-          default: InvestmentTargetTrackerWrapper,
-        }),
-      ),
-    });
+    removeSidebarItem = () => sidebarItem.remove();
 
     ctx.api.logger.debug("Route registered successfully");
     ctx.api.logger.info("Investment Target Tracker addon enabled successfully");
@@ -223,19 +232,13 @@ export default function enable(ctx: AddonContext) {
     throw error;
   }
 
-  // Register cleanup callback
   ctx.onDisable(() => {
     ctx.api.logger.info("🛑 Investment Target Tracker addon is being disabled");
-
-    // Remove all sidebar items
-    addedItems.forEach((item) => {
-      try {
-        item.remove();
-      } catch (error) {
-        ctx.api.logger.error("Error removing sidebar item: " + (error as Error).message);
-      }
-    });
-
+    removeSidebarItem?.();
+    reactRoot?.unmount();
+    reactRoot = undefined;
+    rootElement = undefined;
+    addonCtx = undefined;
     ctx.api.logger.info("Investment Target Tracker addon disabled successfully");
   });
 }

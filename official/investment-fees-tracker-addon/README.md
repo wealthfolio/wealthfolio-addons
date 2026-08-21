@@ -85,7 +85,7 @@ pnpm install
 # Start development mode (watches for changes)
 pnpm dev
 
-# Start development server with hot reload
+# Serve the complete runtime package to Wealthfolio with hot reload
 pnpm dev:server
 
 # Build for production
@@ -124,8 +124,11 @@ This addon demonstrates how to:
 - **Currency Access**: Access exchange rates for multi-currency fee conversion
   and normalization
 - **Settings Access**: Read base currency settings for consistent fee reporting
-- **UI Access**: Add navigation items to sidebar and register dashboard routes
-  for fee analytics
+
+UI integration, query caching, storage, packaged assets, toast notifications,
+and logging are baseline capabilities in Wealthfolio 3.7 and do not require
+manifest permissions. This addon's published 3.6.2 manifest retains its legacy
+UI permission entry for release compatibility.
 
 ## Analytics Features
 

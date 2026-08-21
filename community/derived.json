@@ -1,0 +1,367 @@
+{
+  "generatedAt": "2026-08-21T00:34:49.349Z",
+  "addons": {
+    "asset-and-cash-timeline": {
+      "id": "asset-and-cash-timeline",
+      "runtimeId": "asset-and-cash-timeline",
+      "repository": "https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on",
+      "defaultBranch": "main",
+      "commit": "da2d048102642f382ea2c027019d8142036a6a29",
+      "license": "MIT",
+      "lastPushedAt": "2026-04-30",
+      "manifest": {
+        "name": "Asset amount & Cash Timeline",
+        "version": "1.2.0",
+        "sdkVersion": "2.0.0",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "portfolio",
+            "purpose": "Access portfolio holdings to analyze fees and expenses"
+          },
+          {
+            "category": "activities",
+            "purpose": "Access portfolio holdings to calculate current investment value"
+          },
+          {
+            "category": "exchangeRates",
+            "purpose": "Access to exchange rates and currency data"
+          },
+          {
+            "category": "settings",
+            "purpose": "Access to application settings to get the base currency"
+          },
+          {
+            "category": "ui",
+            "purpose": "Access UI components to display progress"
+          },
+          {
+            "category": "accounts",
+            "purpose": "Access accounts information to display in the calendar"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 2.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "degiro-importer": {
+      "id": "degiro-importer",
+      "runtimeId": "degiro-importer",
+      "repository": "https://github.com/shuisman/degiro-importer",
+      "defaultBranch": "main",
+      "commit": "b6fa986a511352d9d14715425f85b197dd12efeb",
+      "license": "MIT",
+      "lastPushedAt": "2026-06-20",
+      "manifest": {
+        "name": "DeGiro Importer",
+        "version": "1.0.1",
+        "sdkVersion": "3.3.0",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Read accounts so the user can select the import destination"
+          },
+          {
+            "category": "activities",
+            "purpose": "Import DeGiro activities and persist ISIN-to-ticker mappings between imports"
+          },
+          {
+            "category": "market",
+            "purpose": "Resolve ISINs to exchange tickers during the symbol mapping step"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 3.3.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "dividend-tracker": {
+      "id": "dividend-tracker",
+      "runtimeId": "dividend-tracker",
+      "repository": "https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker",
+      "defaultBranch": "master",
+      "commit": "df4f235bc780b5de11d0546fdc6229f624ab19f0",
+      "license": null,
+      "lastPushedAt": "2026-02-06",
+      "manifest": {
+        "name": "Dividend Tracker",
+        "version": "1.0.0",
+        "sdkVersion": "2.0.0",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "activities",
+            "purpose": "Access dividend activity data for visualization"
+          },
+          {
+            "category": "accounts",
+            "purpose": "Display account names in dividend breakdowns"
+          },
+          {
+            "category": "ui",
+            "purpose": "Add navigation items and routes to the sidebar"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 2.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [
+        "repository has no detectable licence, so users have no right to use the addon"
+      ],
+      "warnings": []
+    },
+    "dividend-tracker-addon": {
+      "id": "dividend-tracker-addon",
+      "runtimeId": "dividend-tracker-addon",
+      "repository": "https://github.com/kwaich/dividend-tracker",
+      "defaultBranch": "main",
+      "commit": "11bab814a1f93597eb386f7317f86b86821dc9bc",
+      "license": null,
+      "lastPushedAt": "2026-07-11",
+      "manifest": {
+        "name": "Dividends Importer",
+        "version": "1.2.0",
+        "sdkVersion": "3.6.0",
+        "minWealthfolioVersion": "3.6.0",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "List accounts to group holdings by account"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Get current holdings to check for missing dividends"
+          },
+          {
+            "category": "activities",
+            "purpose": "Check existing dividends and create new ones"
+          },
+          {
+            "category": "market-data",
+            "purpose": "Fetch historical dividend data from configured market data providers"
+          },
+          {
+            "category": "assets",
+            "purpose": "Read asset profiles to pass symbol, exchange, and currency context to market data providers"
+          },
+          {
+            "category": "settings",
+            "purpose": "Get base currency"
+          },
+          {
+            "category": "query",
+            "purpose": "Refresh host activity and dividend query data after saving dividends"
+          },
+          {
+            "category": "ui",
+            "purpose": "Navigation and addon lifecycle cleanup"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "The addon does not request the network permission, so the Wealthfolio runtime blocks all outbound requests."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.6.0."
+      },
+      "notices": [],
+      "problems": [
+        "repository has no detectable licence, so users have no right to use the addon"
+      ],
+      "warnings": []
+    },
+    "lunchmoney-addon": {
+      "id": "lunchmoney-addon",
+      "runtimeId": "lunchmoney-addon",
+      "repository": "https://github.com/elson/lunchmoney-addon",
+      "defaultBranch": "main",
+      "commit": "a4908cf45b211c2a62da795989ee89234a4e1442",
+      "license": "MIT",
+      "lastPushedAt": "2026-03-19",
+      "manifest": {
+        "name": "Lunch Money Add-on",
+        "version": "0.3.4",
+        "sdkVersion": "3.1.1",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Display and link Lunch Money accounts to Wealthfolio accounts"
+          },
+          {
+            "category": "snapshots",
+            "purpose": "Sync Lunch Money account balances as point-in-time snapshots"
+          },
+          {
+            "category": "secrets",
+            "purpose": "Store Lunch Money API key securely"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Fetch current Wealthfolio cash balances to compare against Lunch Money"
+          },
+          {
+            "category": "navigation",
+            "purpose": "Navigate to Wealthfolio account detail pages"
+          },
+          {
+            "category": "logger",
+            "purpose": "Log errors to the Wealthfolio logger"
+          },
+          {
+            "category": "ui",
+            "purpose": "Add navigation items and routes to the sidebar, and clean up on disable"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 3.1.1, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "rebalancer": {
+      "id": "rebalancer",
+      "runtimeId": "rebalancer",
+      "repository": "https://github.com/ibalboteo/wealthfolio-rebalancer",
+      "defaultBranch": "main",
+      "commit": "f5105d6017bedde79248730395123f36a187ef4b",
+      "license": null,
+      "lastPushedAt": "2026-08-17",
+      "manifest": {
+        "name": "rebalancer",
+        "version": "3.1.0",
+        "sdkVersion": "3.6.0",
+        "minWealthfolioVersion": "3.6.0",
+        "permissions": [
+          {
+            "category": "ui",
+            "purpose": "Register addon routes in the UI"
+          },
+          {
+            "category": "accounts",
+            "purpose": "Access account information for portfolio rebalancing"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Read portfolio holdings to calculate rebalancing recommendations"
+          },
+          {
+            "category": "navigation",
+            "purpose": "Navigate to activities page for transaction management"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read the host UI language to localize the addon"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "The addon does not request the network permission, so the Wealthfolio runtime blocks all outbound requests."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.6.0."
+      },
+      "notices": [
+        "not-investment-advice"
+      ],
+      "problems": [
+        "repository has no detectable licence, so users have no right to use the addon"
+      ],
+      "warnings": []
+    },
+    "value-averaging-addon": {
+      "id": "value-averaging-addon",
+      "runtimeId": "value-averaging-addon",
+      "repository": "https://github.com/WuJoe826/Value-Averaging-Addon",
+      "defaultBranch": "main",
+      "commit": "a419e8f5c1735aa2c973c79f36a51450f64fb4b0",
+      "license": "MIT",
+      "lastPushedAt": "2026-05-15",
+      "manifest": {
+        "name": "Value Averaging Calculator",
+        "version": "1.1.0",
+        "sdkVersion": "2.0.0",
+        "minWealthfolioVersion": null,
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Read accounts to map holdings by account"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Read live holdings for value averaging calculations"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read base currency from host settings"
+          },
+          {
+            "category": "activities",
+            "purpose": "Create BUY, SELL, and optional DEPOSIT activities after user confirmation"
+          },
+          {
+            "category": "ui",
+            "purpose": "Add navigation items to the sidebar"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": null,
+        "externalServices": [],
+        "basis": "Built before the 3.6 sandbox, when addons could reach the network without declaring it, so the manifest cannot show where data goes."
+      },
+      "compatibility": {
+        "state": "predates-sandbox",
+        "detail": "Built against SDK 2.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [
+        "not-financial-advice",
+        "not-investment-advice"
+      ],
+      "problems": [],
+      "warnings": []
+    }
+  }
+}

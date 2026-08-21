@@ -1,16 +1,30 @@
 # Community Addons
 
-Community addons are author-maintained. Unverified directory entries are for discovery only; verified community addons are reviewed, built from pinned source, and hosted by Wealthfolio.
+Community addons are independently published. Wealthfolio does not build, host,
+audit, endorse, or support them. This directory is a discovery listing: the
+package is downloaded from the publisher's own repository and installed with
+**Install from File** in Wealthfolio.
 
-| Addon | Author | Description | Trust | Verification | Status | Version | Repo |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Asset Amount & Cash Timeline | bryanrvo1511 | Tracks cash balance and asset accumulation over time with transaction-level insights and holding timelines. | community | unverified | active |  | [Repo](https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on) |
-| Lunch Money Addon | elson8012 | Imports accounts and balances from Lunch Money into Wealthfolio with a one-click update. | community | unverified | active |  | [Repo](https://github.com/elson/lunchmoney-addon) |
-| Value Averaging Addon | wujoe | Runs a value averaging strategy with portfolio weights, top-up rules, growth schedules, and per-ticker investment amounts. | community | unverified | active |  | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
-| Wealthfolio Dividend Tracker | ragnarok896209 | Dividend tracking by year, month, and security with stacked bar charts and per-account tables. | community | unverified | active |  | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
-| Wealthfolio Rebalancer | ibalboteo | Portfolio rebalancing addon for target allocations and long-term portfolio planning. | community | unverified | active |  | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
-| DeGiro Importer | shuisman | Import account statements from DeGiro broker. Supports buys, sells, dividends, deposits, withdrawals, fees and taxes. | community | verified | active | 1.0.1 | [Repo](https://github.com/shuisman/degiro-importer) |
+Listing requirements and the publisher attestation are in
+[POLICIES.md](../POLICIES.md).
 
-## Pending
+| Addon | Publisher | Status | Licence | Runtime | Repo |
+| --- | --- | --- | --- | --- | --- |
+| Asset Amount & Cash Timeline | bryanrvo1511 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on) |
+| DeGiro Importer | shuisman | active | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/shuisman/degiro-importer) |
+| Dividends Importer | kwaich | pending | none | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
+| Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
+| Lunch Money Addon | elson8012 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/elson/lunchmoney-addon) |
+| Wealthfolio Rebalancer | ibalboteo | pending | none | SDK 3.6+ | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
+| Value Averaging Addon | wujoe | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
 
-The previous community note included "Stock Picker Helper", but it did not include a public repository URL. Add it as a directory entry once the repo is available.
+Licence and runtime are **derived** from each publisher's repository, not
+declared here — see [community/derived.json](derived.json), refreshed with
+`pnpm derive:community`.
+
+Only `active` entries appear on
+[wealthfolio.app/addons/community](https://wealthfolio.app/addons/community). A
+listing cannot become active while its repository has no detectable licence, or
+while its manifest does not declare a readable `sdkVersion` of 3.6 or newer —
+before that release an addon could reach the network without declaring it, so
+its manifest cannot show where data goes.

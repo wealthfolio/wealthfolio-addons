@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a vulnerability, a malicious addon, or an IP complaint
+    url: https://github.com/wealthfolio/wealthfolio-addons/blob/main/SECURITY.md
+    about: Do not open a public issue. Email hello@wealthfolio.app.
+  - name: Problem with a community addon
+    url: https://github.com/wealthfolio/wealthfolio-addons/blob/main/community/README.md
+    about: Community addons are supported by their own publishers. Use the support link in the listing.
+  - name: Wealthfolio app issues
+    url: https://github.com/wealthfolio/wealthfolio/issues
+    about: Bugs in the app itself belong in the main repository.

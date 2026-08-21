@@ -2,14 +2,14 @@
   "$schema": "../../schemas/addon-store.schema.json",
   "id": "my-addon",
   "name": "My Addon",
-  "description": "One sentence explaining what the addon does.",
+  "description": "One sentence explaining what the addon does. Plain text, no markup.",
   "author": {
-    "name": "GitHub username or author name",
+    "name": "Publisher name (the person or organisation responsible for the addon)",
     "url": "https://github.com/username"
   },
   "trust": "community",
-  "verification": "unverified",
   "status": "active",
   "tags": ["planning"],
+  "commercialModel": "free",
   "repository": "https://github.com/username/my-addon"
 }

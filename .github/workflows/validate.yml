@@ -19,6 +19,8 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm test:schema
+      - run: pnpm test:derive
       - run: pnpm validate:addons
       - run: pnpm generate
       - run: git diff --exit-code
