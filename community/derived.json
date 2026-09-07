@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T06:30:55.230Z",
+  "generatedAt": "2026-09-07T13:24:43.192Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -267,22 +267,22 @@
       "runtimeId": "myinvestor-importer",
       "repository": "https://github.com/blastik/myinvestor-importer-addon",
       "defaultBranch": "main",
-      "commit": "c9f2af2b5cb272f879366170855df7d56145cd03",
+      "commit": "d805f242415bc0ecd4fdee63c595479fdc594697",
       "license": "MIT",
-      "lastPushedAt": "2026-08-21",
+      "lastPushedAt": "2026-09-05",
       "manifest": {
         "name": "MyInvestor Importer",
-        "version": "1.0.1",
-        "sdkVersion": "3.6.1",
+        "version": "1.1.0",
+        "sdkVersion": "3.7.0",
         "minWealthfolioVersion": "3.6.0",
         "permissions": [
           {
             "category": "accounts",
-            "purpose": "List accounts so the user can select their MyInvestor account"
+            "purpose": "List accounts so the user can select their MyInvestor/Inversis account"
           },
           {
             "category": "activities",
-            "purpose": "Validate and import activities parsed from the MyInvestor exports; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
+            "purpose": "Validate and import activities parsed from the MyInvestor/Inversis exports; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
           },
           {
             "category": "assets",
@@ -317,7 +317,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.6.1."
+        "detail": "Built against SDK 3.7.0."
       },
       "notices": [],
       "problems": [],
@@ -333,7 +333,7 @@
       "defaultBranch": "main",
       "commit": "f5105d6017bedde79248730395123f36a187ef4b",
       "license": null,
-      "lastPushedAt": "2026-08-24",
+      "lastPushedAt": "2026-09-07",
       "manifest": {
         "name": "rebalancer",
         "version": "3.1.0",
@@ -384,12 +384,12 @@
       "runtimeId": "simplefin-sync",
       "repository": "https://github.com/Bubbles840/wealthfolio-simplefin-addon",
       "defaultBranch": "main",
-      "commit": "22bd9041dafa556772ed8ce88c4ba77b1e28d720",
+      "commit": "41bd8ac41384d9c25f51c07790d1a8a857e7f1c3",
       "license": "MIT",
-      "lastPushedAt": "2026-08-24",
+      "lastPushedAt": "2026-09-06",
       "manifest": {
         "name": "SimpleFin Sync",
-        "version": "1.24.0",
+        "version": "1.47.0",
         "sdkVersion": "3.6.2",
         "minWealthfolioVersion": "3.6.2",
         "permissions": [
@@ -451,13 +451,13 @@
       "runtimeId": "trade-republic-importer",
       "repository": "https://github.com/blastik/trade-republic-importer-addon",
       "defaultBranch": "main",
-      "commit": "4a079f159db92f8974bfcb90a22f100d84be6383",
+      "commit": "bc5d25bddbeaa3c7a803a54147f12be5d852f9f3",
       "license": "MIT",
-      "lastPushedAt": "2026-08-21",
+      "lastPushedAt": "2026-09-01",
       "manifest": {
         "name": "Trade Republic Importer",
-        "version": "1.3.1",
-        "sdkVersion": "3.6.1",
+        "version": "1.3.3",
+        "sdkVersion": "3.7.0",
         "minWealthfolioVersion": "3.6.0",
         "permissions": [
           {
@@ -501,7 +501,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.6.1."
+        "detail": "Built against SDK 3.7.0."
       },
       "notices": [],
       "problems": [],
