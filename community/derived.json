@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T17:41:26.476Z",
+  "generatedAt": "2026-09-28T15:11:38.547Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -267,22 +267,22 @@
       "runtimeId": "myinvestor-importer",
       "repository": "https://github.com/blastik/myinvestor-importer-addon",
       "defaultBranch": "main",
-      "commit": "287ef81d0b3f0b9890bc0df89b25d5643be8da81",
+      "commit": "1741659cac77851daffbd63531f1573261259e0f",
       "license": "MIT",
-      "lastPushedAt": "2026-08-24",
+      "lastPushedAt": "2026-09-08",
       "manifest": {
         "name": "MyInvestor Importer",
-        "version": "1.0.2",
-        "sdkVersion": "3.7.0",
-        "minWealthfolioVersion": "3.6.0",
+        "version": "1.3.2",
+        "sdkVersion": "3.8.0",
+        "minWealthfolioVersion": "3.8.0",
         "permissions": [
           {
             "category": "accounts",
-            "purpose": "List accounts so the user can select their MyInvestor account"
+            "purpose": "List accounts so the user can select their MyInvestor/Inversis account"
           },
           {
             "category": "activities",
-            "purpose": "Validate and import activities parsed from the MyInvestor exports; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
+            "purpose": "Validate and import activities parsed from the MyInvestor/Inversis exports; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
           },
           {
             "category": "assets",
@@ -307,6 +307,10 @@
           {
             "category": "market-data",
             "purpose": "Search for securities when mapping unrecognised funds"
+          },
+          {
+            "category": "currency",
+            "purpose": "Look up historical EUR exchange rates for non-EUR fund switches (traspasos), so their cash impact books into the account's real EUR balance instead of an unfunded foreign-currency bucket"
           }
         ]
       },
@@ -317,7 +321,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.7.0."
+        "detail": "Built against SDK 3.8.0."
       },
       "notices": [],
       "problems": [],
@@ -333,7 +337,7 @@
       "defaultBranch": "main",
       "commit": "f5105d6017bedde79248730395123f36a187ef4b",
       "license": null,
-      "lastPushedAt": "2026-08-24",
+      "lastPushedAt": "2026-09-21",
       "manifest": {
         "name": "rebalancer",
         "version": "3.1.0",
@@ -384,12 +388,12 @@
       "runtimeId": "simplefin-sync",
       "repository": "https://github.com/Bubbles840/wealthfolio-simplefin-addon",
       "defaultBranch": "main",
-      "commit": "f294965239dd61a0bc2c1224435f2fdac6c04d34",
+      "commit": "2b9f93abba2e7f1618adf49b7ecbbaaea1b3de9d",
       "license": "MIT",
-      "lastPushedAt": "2026-08-25",
+      "lastPushedAt": "2026-09-24",
       "manifest": {
         "name": "SimpleFin Sync",
-        "version": "1.24.1",
+        "version": "1.56.1",
         "sdkVersion": "3.6.2",
         "minWealthfolioVersion": "3.6.2",
         "permissions": [
@@ -420,6 +424,10 @@
           {
             "category": "ui",
             "purpose": "Register sidebar navigation item and route for SimpleFin Sync"
+          },
+          {
+            "category": "snapshots",
+            "purpose": "Import holdings snapshots for investment accounts, so a brokerage syncs its positions and not only its cash."
           }
         ]
       },
@@ -451,12 +459,12 @@
       "runtimeId": "simplefin-wealthfolio-addon",
       "repository": "https://github.com/christancho/simplefin-wealthfolio-addon",
       "defaultBranch": "main",
-      "commit": "0e8f2c1e7a34e075879752a45de2c42366260988",
+      "commit": "b1377e3093f74fb02d031450ef9ae592ad89812e",
       "license": "MIT",
-      "lastPushedAt": "2026-08-28",
+      "lastPushedAt": "2026-09-21",
       "manifest": {
         "name": "SimpleFIN Sync",
-        "version": "1.1.0",
+        "version": "1.1.2",
         "sdkVersion": "3.6.2",
         "minWealthfolioVersion": "3.6.2",
         "permissions": [
@@ -513,7 +521,7 @@
       "defaultBranch": "main",
       "commit": "bc5d25bddbeaa3c7a803a54147f12be5d852f9f3",
       "license": "MIT",
-      "lastPushedAt": "2026-08-24",
+      "lastPushedAt": "2026-09-01",
       "manifest": {
         "name": "Trade Republic Importer",
         "version": "1.3.3",
@@ -627,12 +635,12 @@
       "runtimeId": "wealthfolio-skatt",
       "repository": "https://github.com/AlexanderBabel/wealthfolio-skatt",
       "defaultBranch": "main",
-      "commit": "f7bbdb6573891690026ba8eb4b0e3b4c7e0e3332",
+      "commit": "3fbe5a5b3bb811a045e367fb53a83d2061daea56",
       "license": "MIT",
-      "lastPushedAt": "2026-08-25",
+      "lastPushedAt": "2026-09-27",
       "manifest": {
         "name": "Skatt (Sweden)",
-        "version": "1.2.0",
+        "version": "1.2.1",
         "sdkVersion": "3.6.2",
         "minWealthfolioVersion": "3.6.2",
         "permissions": [
