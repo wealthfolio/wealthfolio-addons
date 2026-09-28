@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T17:41:26.476Z",
+  "generatedAt": "2026-09-28T09:01:51.448Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -94,6 +94,47 @@
       "compatibility": {
         "state": "predates-sandbox",
         "detail": "Built against SDK 2.0.0, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "degiro-importer": {
+      "id": "degiro-importer",
+      "runtimeId": "degiro-importer",
+      "repository": "https://github.com/shuisman/degiro-importer",
+      "defaultBranch": "main",
+      "commit": "4a53b30ebb8ea16bc25877a247b2c69ec06e96d9",
+      "license": "MIT",
+      "lastPushedAt": "2026-09-28",
+      "manifest": {
+        "name": "DeGiro Importer",
+        "version": "1.1.0",
+        "sdkVersion": "3.9.0",
+        "minWealthfolioVersion": "3.6.2",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Read accounts so the user can select the import destination"
+          },
+          {
+            "category": "activities",
+            "purpose": "Import DeGiro activities and persist ISIN-to-ticker mappings between imports"
+          },
+          {
+            "category": "market-data",
+            "purpose": "Resolve ISINs to exchange tickers during the symbol mapping step"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.9.0."
       },
       "notices": [],
       "problems": [],

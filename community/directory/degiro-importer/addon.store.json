@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "degiro-importer",
+  "name": "DeGiro Importer",
+  "description": "Import account statements from DeGiro broker. Supports buys, sells, dividends, deposits, withdrawals, fees and taxes.",
+  "author": {
+    "name": "shuisman",
+    "url": "https://github.com/shuisman"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": [
+    "import",
+    "activities"
+  ],
+  "commercialModel": "free",
+  "repository": "https://github.com/shuisman/degiro-importer",
+  "supportUrl": "https://github.com/shuisman/degiro-importer/issues"
+}
