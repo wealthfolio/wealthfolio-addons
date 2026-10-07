@@ -12,6 +12,7 @@ Listing requirements and the publisher attestation are in
 | --- | --- | --- | --- | --- | --- |
 | Adanos Sentiment | Adanos | active | MIT | SDK 3.6+ | [Repo](https://github.com/adanos-software/wealthfolio-adanos-sentiment) |
 | Asset Amount & Cash Timeline | bryanrvo1511 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on) |
+| Broker Importer | waldonso2 | active | MIT | SDK 3.6+ | [Repo](https://github.com/waldonso2/wealthfolio-importer-addon) |
 | DeGiro Importer | shuisman | active | MIT | SDK 3.6+ | [Repo](https://github.com/shuisman/degiro-importer) |
 | Dividends Importer | kwaich | pending | MIT | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |

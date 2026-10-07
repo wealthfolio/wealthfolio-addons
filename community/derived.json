@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T13:14:14.789Z",
+  "generatedAt": "2026-10-07T20:05:25.000Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -98,6 +98,69 @@
       "notices": [],
       "problems": [],
       "warnings": []
+    },
+    "broker-importer": {
+      "id": "broker-importer",
+      "runtimeId": "broker-importer",
+      "repository": "https://github.com/waldonso2/wealthfolio-importer-addon",
+      "defaultBranch": "main",
+      "commit": "a8f979191fd9a1016c4d6c92caab855db921d33c",
+      "license": "MIT",
+      "lastPushedAt": "2026-10-07",
+      "manifest": {
+        "name": "Broker Importer",
+        "version": "3.9.0",
+        "sdkVersion": "3.9.0",
+        "minWealthfolioVersion": "3.9.0",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "List accounts so the user can select their cash and portfolio accounts"
+          },
+          {
+            "category": "activities",
+            "purpose": "Validate and import activities parsed from broker CSV exports and PDF statements; read existing trades and dividends to skip transactions already imported from another source"
+          },
+          {
+            "category": "assets",
+            "purpose": "Create new asset entries for unrecognised securities during import"
+          },
+          {
+            "category": "secrets",
+            "purpose": "Persist addon configuration (account selection, transfer patterns, security mappings) across sessions"
+          },
+          {
+            "category": "ui",
+            "purpose": "Add importer navigation item to sidebar and register addon routes"
+          },
+          {
+            "category": "query",
+            "purpose": "Refresh host application data after import"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Trigger portfolio recalculation after import"
+          },
+          {
+            "category": "market-data",
+            "purpose": "Search for securities when mapping unrecognised tickers"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.9.0."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": [
+        "declares the secrets permission but not network, so any service it stores credentials for is unreachable"
+      ]
     },
     "degiro-importer": {
       "id": "degiro-importer",

@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "broker-importer",
+  "name": "Broker Importer",
+  "description": "Import Trade Republic and Scalable Capital CSV exports and PDF trade and dividend statements from Trade Republic, Scalable Capital and DKB into Wealthfolio. Splits cash and securities across two accounts per broker, links internal transfers and skips transactions already imported.",
+  "author": {
+    "name": "waldonso2",
+    "url": "https://github.com/waldonso2"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["import", "csv", "pdf", "trade-republic", "scalable-capital", "dkb"],
+  "commercialModel": "free",
+  "repository": "https://github.com/waldonso2/wealthfolio-importer-addon"
+}
