@@ -1,0 +1,20 @@
+{
+  "$schema": "../../schemas/addon-store.schema.json",
+  "id": "contribution-tracker-stats",
+  "name": "Contribution Tracker Stats",
+  "description": "Charts your deposits by month, day or year, with totals, averages and the period selector used by Wealthfolio's own reports.",
+  "author": {
+    "name": "Mateusz Lorencki",
+    "url": "https://github.com/mateuszlor"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["analytics", "statistics", "reporting", "contributions"],
+  "commercialModel": "free",
+  "repository": "https://github.com/mateuszlor/wealthfolio-addon-contribution-tracker-stats",
+  "supportUrl": "https://github.com/mateuszlor/wealthfolio-addon-contribution-tracker-stats/issues",
+  "dataHandling": {
+    "leavesDevice": false,
+    "externalServices": []
+  }
+}
