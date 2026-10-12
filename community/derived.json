@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T13:14:14.789Z",
+  "generatedAt": "2026-10-12T16:37:41.085Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -306,12 +306,12 @@
       "runtimeId": "myinvestor-importer",
       "repository": "https://github.com/blastik/myinvestor-importer-addon",
       "defaultBranch": "main",
-      "commit": "fab14f168143e8a20201cb2215494fe8a7928e33",
+      "commit": "59d50abba6de2063b75abf51a84497575c4e369e",
       "license": "MIT",
-      "lastPushedAt": "2026-10-01",
+      "lastPushedAt": "2026-10-05",
       "manifest": {
         "name": "MyInvestor Importer",
-        "version": "1.4.0",
+        "version": "1.5.1",
         "sdkVersion": "3.9.0",
         "minWealthfolioVersion": "3.9.0",
         "permissions": [
@@ -427,12 +427,12 @@
       "runtimeId": "simplefin-sync",
       "repository": "https://github.com/Bubbles840/wealthfolio-simplefin-addon",
       "defaultBranch": "main",
-      "commit": "2b9f93abba2e7f1618adf49b7ecbbaaea1b3de9d",
+      "commit": "db5d8575a5e04d08b009ecd6c6a8a236ff6f2424",
       "license": "MIT",
-      "lastPushedAt": "2026-09-24",
+      "lastPushedAt": "2026-10-10",
       "manifest": {
         "name": "SimpleFin Sync",
-        "version": "1.56.1",
+        "version": "1.59.2",
         "sdkVersion": "3.6.2",
         "minWealthfolioVersion": "3.6.2",
         "permissions": [
