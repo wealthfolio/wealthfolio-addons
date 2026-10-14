@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "wealthfolio-transfers",
+  "name": "Transfer Finder",
+  "description": "Scans your activity history for likely transfer pairs between accounts and links them, reclassifying normal activities as transfers when needed.",
+  "author": {
+    "name": "Mark Rickert",
+    "url": "https://github.com/markrickert"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["transfers", "transactions", "cash", "categorization"],
+  "commercialModel": "free",
+  "repository": "https://github.com/markrickert/wealthfolio-transfer-finder",
+  "supportUrl": "https://github.com/markrickert/wealthfolio-transfer-finder/issues"
+}

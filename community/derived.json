@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T13:14:14.789Z",
+  "generatedAt": "2026-10-14T17:12:23.921Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -729,6 +729,39 @@
       "notices": [
         "not-tax-advice"
       ],
+      "problems": [],
+      "warnings": []
+    },
+    "wealthfolio-transfers": {
+      "id": "wealthfolio-transfers",
+      "runtimeId": "wealthfolio-transfers",
+      "repository": "https://github.com/markrickert/wealthfolio-transfer-finder",
+      "defaultBranch": "main",
+      "commit": "bd6d9f0c0a982a7f654fcd29cb8492b76e095fe8",
+      "license": "MIT",
+      "lastPushedAt": "2026-09-30",
+      "manifest": {
+        "name": "Transfer Finder",
+        "version": "0.1.2",
+        "sdkVersion": "3.9.0",
+        "minWealthfolioVersion": "3.9.0",
+        "permissions": [
+          {
+            "category": "activities",
+            "purpose": "Detect and link internal transfer pairs"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.9.0."
+      },
+      "notices": [],
       "problems": [],
       "warnings": []
     }

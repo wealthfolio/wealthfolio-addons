@@ -23,6 +23,7 @@ Listing requirements and the publisher attestation are in
 | Trade Republic Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/trade-republic-importer-addon) |
 | Value Averaging Addon | wujoe | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
 | Skatt (Sweden) | AlexanderBabel | active | MIT | SDK 3.6+ | [Repo](https://github.com/AlexanderBabel/wealthfolio-skatt) |
+| Transfer Finder | Mark Rickert | active | MIT | SDK 3.6+ | [Repo](https://github.com/markrickert/wealthfolio-transfer-finder) |
 
 Licence and runtime are **derived** from each publisher's repository, not
 declared here — see [community/derived.json](derived.json), refreshed with
