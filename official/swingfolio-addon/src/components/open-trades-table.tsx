@@ -9,8 +9,12 @@ import {
   TableHeader,
   TableRow,
   Icons,
-  EmptyPlaceholder,
   Separator,
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import { TickerAvatar } from "./ticker-avatar";
 import { parseOccSymbol, formatOptionDescription, cn } from "../lib/utils";
@@ -53,12 +57,18 @@ export function OpenTradesTable({ positions, onAssetClick }: OpenTradesTableProp
   if (positions.length === 0) {
     return (
       <div className="flex h-[200px] w-full items-center justify-center sm:h-[300px]">
-        <EmptyPlaceholder
-          className="mx-auto flex max-w-[400px] items-center justify-center"
-          icon={<Icons.TrendingUp className="h-10 w-10" />}
-          title="No Open Positions"
-          description="You don't have any open swing trading positions at the moment. Closed trades will appear in your performance metrics."
-        />
+        <Empty className="mx-auto flex max-w-[400px] items-center justify-center">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Icons.TrendingUp />
+            </EmptyMedia>
+            <EmptyTitle>No Open Positions</EmptyTitle>
+            <EmptyDescription>
+              You don't have any open swing trading positions at the moment. Closed trades will
+              appear in your performance metrics.
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
       </div>
     );
   }

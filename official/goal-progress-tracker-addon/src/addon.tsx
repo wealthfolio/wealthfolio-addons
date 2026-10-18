@@ -2,7 +2,12 @@ import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import { type AddonContext, type AddonRouteRenderContext, type Goal } from "@wealthfolio/addon-sdk";
 import {
   Button,
-  EmptyPlaceholder,
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
   Icons,
   Page,
   PageContent,
@@ -144,18 +149,24 @@ function InvestmentTargetTracker({ ctx }: { ctx: AddonContext }) {
         <PageContent>
           <div className="flex justify-center">
             <div className="w-full max-w-lg">
-              <EmptyPlaceholder className="mt-16">
-                <EmptyPlaceholder.Icon name="Goals" />
-                <EmptyPlaceholder.Title>No Goals Found</EmptyPlaceholder.Title>
-                <EmptyPlaceholder.Description>
-                  You haven&apos;t created any investment goals yet. Create your first goal to start
-                  tracking your progress.
-                </EmptyPlaceholder.Description>
-                <Button onClick={() => ctx.api.navigation.navigate("/goals/new")}>
-                  <Icons.Plus className="mr-2 h-4 w-4" />
-                  Create Your First Goal
-                </Button>
-              </EmptyPlaceholder>
+              <Empty className="mt-16">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <Icons.Goals />
+                  </EmptyMedia>
+                  <EmptyTitle>No Goals Found</EmptyTitle>
+                  <EmptyDescription>
+                    You haven&apos;t created any investment goals yet. Create your first goal to
+                    start tracking your progress.
+                  </EmptyDescription>
+                </EmptyHeader>
+                <EmptyContent>
+                  <Button onClick={() => ctx.api.navigation.navigate("/goals/new")}>
+                    <Icons.Plus className="mr-2 h-4 w-4" />
+                    Create Your First Goal
+                  </Button>
+                </EmptyContent>
+              </Empty>
             </div>
           </div>
         </PageContent>

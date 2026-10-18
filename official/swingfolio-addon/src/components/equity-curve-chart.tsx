@@ -4,9 +4,13 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-  EmptyPlaceholder,
   Icons,
   formatAmount,
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import { Bar, CartesianGrid, Cell, ComposedChart, Line, XAxis, YAxis } from "@wealthfolio/ui/chart";
 import { format, parseISO } from "date-fns";
@@ -52,12 +56,18 @@ export function EquityCurveChart({
   if (data.length === 0) {
     return (
       <div className="flex h-full min-h-[200px] w-full items-center justify-center sm:min-h-[300px]">
-        <EmptyPlaceholder
-          className="mx-auto flex max-w-[420px] items-center justify-center"
-          icon={<Icons.TrendingUp className="h-10 w-10" />}
-          title="No data available"
-          description="There is no equity curve data for the selected period. Try selecting a different time range or check the selected activities."
-        />
+        <Empty className="mx-auto flex max-w-[420px] items-center justify-center">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Icons.TrendingUp />
+            </EmptyMedia>
+            <EmptyTitle>No data available</EmptyTitle>
+            <EmptyDescription>
+              There is no equity curve data for the selected period. Try selecting a different time
+              range or check the selected activities.
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
       </div>
     );
   }

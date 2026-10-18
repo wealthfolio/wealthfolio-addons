@@ -34,16 +34,18 @@ function GoalSelector({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between sm:w-[200px]"
-        >
-          {selectedGoal ? selectedGoal.title : "Select a goal..."}
-          <Icons.ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
+      <PopoverTrigger
+        render={
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between sm:w-[200px]"
+          />
+        }
+      >
+        {selectedGoal ? selectedGoal.title : "Select a goal..."}
+        <Icons.ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </PopoverTrigger>
       <PopoverContent className="w-full p-0 sm:w-[200px]">
         <Command>

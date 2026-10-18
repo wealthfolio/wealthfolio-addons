@@ -5,9 +5,13 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  EmptyPlaceholder,
   formatAmount,
   Icons,
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import {
   Bar,
@@ -153,12 +157,15 @@ export function DistributionCharts({ distribution, currency }: DistributionChart
             </ChartContainer>
           ) : (
             <div className="flex h-[150px] w-full items-center justify-center sm:h-[200px]">
-              <EmptyPlaceholder
-                className="mx-auto flex max-w-[420px] items-center justify-center"
-                icon={<Icons.BarChart className="h-8 w-8" />}
-                title="No Symbol Data"
-                description="No completed trades in this period."
-              />
+              <Empty className="mx-auto flex max-w-[420px] items-center justify-center">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <Icons.BarChart />
+                  </EmptyMedia>
+                  <EmptyTitle>No Symbol Data</EmptyTitle>
+                  <EmptyDescription>No completed trades in this period.</EmptyDescription>
+                </EmptyHeader>
+              </Empty>
             </div>
           )}
         </CardContent>
@@ -234,12 +241,15 @@ export function DistributionCharts({ distribution, currency }: DistributionChart
             </ChartContainer>
           ) : (
             <div className="flex h-[150px] w-full items-center justify-center sm:h-[200px]">
-              <EmptyPlaceholder
-                className="mx-auto flex max-w-[420px] items-center justify-center"
-                icon={<Icons.Clock className="h-8 w-8" />}
-                title="No Holding Period Data"
-                description="No completed trades in this period."
-              />
+              <Empty className="mx-auto flex max-w-[420px] items-center justify-center">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <Icons.Clock />
+                  </EmptyMedia>
+                  <EmptyTitle>No Holding Period Data</EmptyTitle>
+                  <EmptyDescription>No completed trades in this period.</EmptyDescription>
+                </EmptyHeader>
+              </Empty>
             </div>
           )}
         </CardContent>

@@ -9,9 +9,13 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-  EmptyPlaceholder,
   formatAmount,
   Icons,
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from "@wealthfolio/ui/chart";
 import { format, parseISO } from "date-fns";
@@ -76,12 +80,18 @@ export function FeeHistoryChart({
       </CardHeader>
       <CardContent className="flex h-full flex-col px-4 pb-6 pt-0 sm:px-6">
         {chartData.length === 0 ? (
-          <EmptyPlaceholder
-            className="mx-auto flex h-[300px] max-w-[420px] items-center justify-center"
-            icon={<Icons.ChartBar className="size-10" />}
-            title="No fee history available"
-            description="There is no fee history for the selected period. Try selecting a different time range or check back later."
-          />
+          <Empty className="mx-auto flex h-[300px] max-w-[420px] items-center justify-center">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <Icons.ChartBar />
+              </EmptyMedia>
+              <EmptyTitle>No fee history available</EmptyTitle>
+              <EmptyDescription>
+                There is no fee history for the selected period. Try selecting a different time
+                range or check back later.
+              </EmptyDescription>
+            </EmptyHeader>
+          </Empty>
         ) : (
           <ChartContainer
             className="min-h-[280px] w-full max-w-full flex-1 sm:min-h-[320px] lg:min-h-[360px] xl:min-h-[420px]"

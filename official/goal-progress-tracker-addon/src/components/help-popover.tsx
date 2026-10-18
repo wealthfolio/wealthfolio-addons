@@ -4,10 +4,10 @@ import { Button, Icons, Popover, PopoverContent, PopoverTrigger } from "@wealthf
 function HelpPopover() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Help">
-          <Icons.HelpCircle className="h-4 w-4" />
-        </Button>
+      <PopoverTrigger
+        render={<Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Help" />}
+      >
+        <Icons.HelpCircle className="h-4 w-4" />
       </PopoverTrigger>
 
       <PopoverContent className="w-96" align="start">

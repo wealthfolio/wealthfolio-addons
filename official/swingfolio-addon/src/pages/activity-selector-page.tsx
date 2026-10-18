@@ -235,7 +235,16 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
                 />
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <Select value={selectedAccount} onValueChange={setSelectedAccount}>
+                <Select
+                  value={selectedAccount}
+                  items={[
+                    { value: "all", label: "All Accounts" },
+                    ...accounts.map((account) => ({ value: account.name, label: account.name })),
+                  ]}
+                  onValueChange={(value) => {
+                    if (value !== null) setSelectedAccount(value);
+                  }}
+                >
                   <SelectTrigger className="w-[200px]">
                     <SelectValue placeholder="All Accounts" />
                   </SelectTrigger>
@@ -248,7 +257,13 @@ export default function ActivitySelectorPage({ ctx }: ActivitySelectorPageProps)
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={selectedType} onValueChange={setSelectedType}>
+                <Select
+                  value={selectedType}
+                  items={{ all: "All Types", BUY: "Buy", SELL: "Sell" }}
+                  onValueChange={(value) => {
+                    if (value !== null) setSelectedType(value);
+                  }}
+                >
                   <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>

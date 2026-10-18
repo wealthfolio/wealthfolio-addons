@@ -3,8 +3,10 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  EmptyPlaceholder,
   Skeleton,
+  Empty,
+  EmptyHeader,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import { useMemo, useState } from "react";
 import { DonutChart } from "./donut-chart";
@@ -100,10 +102,11 @@ export const FeeCategoriesChart = ({
             displayTooltip={false}
           />
         ) : (
-          <EmptyPlaceholder
-            description="There is no fee category data available."
-            className="max-h-[160px]"
-          />
+          <Empty className="max-h-[160px]">
+            <EmptyHeader>
+              <EmptyDescription>There is no fee category data available.</EmptyDescription>
+            </EmptyHeader>
+          </Empty>
         )}
       </CardContent>
     </Card>

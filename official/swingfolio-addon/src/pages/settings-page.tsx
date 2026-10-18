@@ -81,7 +81,17 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="lot-method">Lot Matching Method</Label>
-              <Select value={preferences.lotMatchingMethod} onValueChange={handleLotMethodChange}>
+              <Select
+                value={preferences.lotMatchingMethod}
+                items={{
+                  FIFO: "FIFO (First In, First Out)",
+                  LIFO: "LIFO (Last In, First Out)",
+                  AVERAGE: "Average Cost",
+                }}
+                onValueChange={(value) => {
+                  if (value !== null) handleLotMethodChange(value);
+                }}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -112,7 +122,17 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
               <Label htmlFor="default-range">Default Date Range</Label>
               <Select
                 value={preferences.defaultDateRange}
-                onValueChange={handleDefaultDateRangeChange}
+                items={{
+                  "1M": "1 Month",
+                  "3M": "3 Months",
+                  "6M": "6 Months",
+                  YTD: "Year to Date",
+                  "1Y": "1 Year",
+                  ALL: "All Time",
+                }}
+                onValueChange={(value) => {
+                  if (value !== null) handleDefaultDateRangeChange(value);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -135,7 +155,15 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
               <Label htmlFor="default-dashboard-view">Default Mobile Section</Label>
               <Select
                 value={preferences.defaultDashboardView}
-                onValueChange={handleDefaultDashboardViewChange}
+                items={{
+                  overview: "Overview",
+                  calendar: "Calendar",
+                  positions: "Positions",
+                  analysis: "Analysis",
+                }}
+                onValueChange={(value) => {
+                  if (value !== null) handleDefaultDashboardViewChange(value);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -156,7 +184,10 @@ export default function SettingsPage({ ctx }: SettingsPageProps) {
               <Label htmlFor="calendar-week-start">Calendar Week Start</Label>
               <Select
                 value={preferences.calendarWeekStart}
-                onValueChange={handleCalendarWeekStartChange}
+                items={{ locale: "System Locale", sunday: "Sunday", monday: "Monday" }}
+                onValueChange={(value) => {
+                  if (value !== null) handleCalendarWeekStartChange(value);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue />

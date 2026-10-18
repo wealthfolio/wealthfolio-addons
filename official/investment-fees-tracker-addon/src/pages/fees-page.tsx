@@ -3,13 +3,17 @@ import {
   Card,
   CardContent,
   CardHeader,
-  EmptyPlaceholder,
   Icons,
   Page,
   PageContent,
   PageHeader,
   Skeleton,
   useBalancePrivacy,
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
 } from "@wealthfolio/ui";
 import React, { useState } from "react";
 import {
@@ -61,12 +65,15 @@ export default function FeesPage({ ctx }: FeesPageProps) {
         <PageHeader heading="Fees Tracker" actions={headerActions} />
         <PageContent>
           <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-            <EmptyPlaceholder
-              className="border-border/50 w-full max-w-[420px] border border-dashed"
-              icon={<Icons.CreditCard className="h-10 w-10" />}
-              title="Failed to load fee data"
-              description={errorMessage}
-            />
+            <Empty className="border-border/50 w-full max-w-[420px] border border-dashed">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <Icons.CreditCard />
+                </EmptyMedia>
+                <EmptyTitle>Failed to load fee data</EmptyTitle>
+                <EmptyDescription>{errorMessage}</EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           </div>
         </PageContent>
       </Page>
@@ -82,12 +89,18 @@ export default function FeesPage({ ctx }: FeesPageProps) {
         <PageHeader heading="Fees Tracker" actions={headerActions} />
         <PageContent>
           <div className="flex h-[calc(100vh-200px)] items-center justify-center">
-            <EmptyPlaceholder
-              className="border-border/50 w-full max-w-[420px] border border-dashed"
-              icon={<Icons.CreditCard className="h-10 w-10" />}
-              title="No fee data available"
-              description="There is no fee data for the selected period. Try selecting a different time range or check back later."
-            />
+            <Empty className="border-border/50 w-full max-w-[420px] border border-dashed">
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <Icons.CreditCard />
+                </EmptyMedia>
+                <EmptyTitle>No fee data available</EmptyTitle>
+                <EmptyDescription>
+                  There is no fee data for the selected period. Try selecting a different time range
+                  or check back later.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
           </div>
         </PageContent>
       </Page>
