@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T15:46:44.814Z",
+  "generatedAt": "2026-11-01T04:07:30.672Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -167,11 +167,11 @@
       "runtimeId": "cas-importer",
       "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
       "defaultBranch": "main",
-      "commit": "ebc67db2765245ab9402c27796930cefdd8f3d3d",
+      "commit": "7912ba59f809cdeb9e0ce5cf9bf6c9dd720a30cb",
       "license": "MIT",
       "lastPushedAt": "2026-10-31",
       "manifest": {
-        "name": "CAS Importer",
+        "name": "CAS Importer (India)",
         "version": "1.1.0",
         "sdkVersion": "3.11.0",
         "minWealthfolioVersion": "3.11.0",
@@ -191,6 +191,10 @@
           {
             "category": "activities",
             "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read Wealthfolio's timezone, so a statement's units are checked against activities on the days Wealthfolio counts them"
           },
           {
             "category": "market-data",
