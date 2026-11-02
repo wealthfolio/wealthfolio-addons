@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T15:46:44.814Z",
+  "generatedAt": "2026-11-02T16:56:39.091Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -106,7 +106,7 @@
       "defaultBranch": "main",
       "commit": "2d8d000668146e7c1af236807472d57222500d9d",
       "license": "MIT",
-      "lastPushedAt": "2026-10-30",
+      "lastPushedAt": "2026-10-31",
       "manifest": {
         "name": "Broker Importer",
         "version": "3.11.0",
@@ -167,12 +167,12 @@
       "runtimeId": "cas-importer",
       "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
       "defaultBranch": "main",
-      "commit": "ebc67db2765245ab9402c27796930cefdd8f3d3d",
+      "commit": "eda75f17c46626b0d5507eb0cdefa33beb0b6a71",
       "license": "MIT",
-      "lastPushedAt": "2026-10-31",
+      "lastPushedAt": "2026-11-02",
       "manifest": {
-        "name": "CAS Importer",
-        "version": "1.1.0",
+        "name": "CAS Importer (India)",
+        "version": "1.2.0",
         "sdkVersion": "3.11.0",
         "minWealthfolioVersion": "3.11.0",
         "permissions": [
@@ -191,6 +191,10 @@
           {
             "category": "activities",
             "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read Wealthfolio's timezone, so a statement's units are checked against activities on the days Wealthfolio counts them"
           },
           {
             "category": "market-data",
@@ -314,12 +318,12 @@
       "runtimeId": "dividend-tracker-addon",
       "repository": "https://github.com/kwaich/dividend-tracker",
       "defaultBranch": "main",
-      "commit": "163a51c021ac321006a0a5aca348323cda650d75",
+      "commit": "d27168c6fc21177c0332f1477aafaac96e824ee5",
       "license": "MIT",
-      "lastPushedAt": "2026-10-05",
+      "lastPushedAt": "2026-10-22",
       "manifest": {
         "name": "Dividends Importer",
-        "version": "1.3.0",
+        "version": "1.4.0",
         "sdkVersion": "3.6.0",
         "minWealthfolioVersion": "3.6.0",
         "permissions": [
@@ -432,12 +436,12 @@
       "runtimeId": "myinvestor-importer",
       "repository": "https://github.com/blastik/myinvestor-importer-addon",
       "defaultBranch": "main",
-      "commit": "fab14f168143e8a20201cb2215494fe8a7928e33",
+      "commit": "e55098d6f2343455546adedae6cca45891beea67",
       "license": "MIT",
-      "lastPushedAt": "2026-10-01",
+      "lastPushedAt": "2026-11-02",
       "manifest": {
         "name": "MyInvestor Importer",
-        "version": "1.4.0",
+        "version": "1.5.2",
         "sdkVersion": "3.9.0",
         "minWealthfolioVersion": "3.9.0",
         "permissions": [
@@ -500,9 +504,9 @@
       "runtimeId": "rebalancer",
       "repository": "https://github.com/ibalboteo/wealthfolio-rebalancer",
       "defaultBranch": "main",
-      "commit": "f5105d6017bedde79248730395123f36a187ef4b",
+      "commit": "4ec50b7fbe4c83d807d07dd9e51a060d8afc8556",
       "license": null,
-      "lastPushedAt": "2026-09-21",
+      "lastPushedAt": "2026-10-26",
       "manifest": {
         "name": "rebalancer",
         "version": "3.1.0",
@@ -553,14 +557,14 @@
       "runtimeId": "simplefin-sync",
       "repository": "https://github.com/Bubbles840/wealthfolio-simplefin-addon",
       "defaultBranch": "main",
-      "commit": "2b9f93abba2e7f1618adf49b7ecbbaaea1b3de9d",
+      "commit": "57db98d0079632f8038fee9b7c12bade00d90cb2",
       "license": "MIT",
-      "lastPushedAt": "2026-09-24",
+      "lastPushedAt": "2026-10-30",
       "manifest": {
         "name": "SimpleFin Sync",
-        "version": "1.56.1",
-        "sdkVersion": "3.6.2",
-        "minWealthfolioVersion": "3.6.2",
+        "version": "1.71.0",
+        "sdkVersion": "3.9.0",
+        "minWealthfolioVersion": "3.8.0",
         "permissions": [
           {
             "category": "accounts",
@@ -568,7 +572,11 @@
           },
           {
             "category": "activities",
-            "purpose": "Import bank transactions, reconcile pending transactions (create/update/delete), and link transfer pairs"
+            "purpose": "Import bank transactions, reconcile pending transactions (create/update/delete), and link transfer pairs. On Wealthfolio 3.9 and newer: link and unlink transfers in place, and read whether a transaction is linked and what it is filed under"
+          },
+          {
+            "category": "spending",
+            "purpose": "Read your spending categories' names, to show what a transaction is filed under. On Wealthfolio 3.9 and newer: file a deposit you mark as a payback under the spending it pays back, through a one-off filing rule the add-on makes, runs and deletes"
           },
           {
             "category": "navigation",
@@ -576,7 +584,7 @@
           },
           {
             "category": "portfolio",
-            "purpose": "Read current account balances to size one-time starting-balance corrections"
+            "purpose": "Read current account balances to size one-time starting-balance corrections, and read which holdings an investment account has priced, so only a holding with no price is looked at"
           },
           {
             "category": "secrets",
@@ -592,7 +600,19 @@
           },
           {
             "category": "snapshots",
-            "purpose": "Import holdings snapshots for investment accounts, so a brokerage syncs its positions and not only its cash."
+            "purpose": "Import holdings snapshots for investment accounts, so a brokerage syncs its positions and not only its cash, and read earlier snapshots to find the holding a dividend paid after its sale belongs to."
+          },
+          {
+            "category": "assets",
+            "purpose": "Read whether a holding is priced by the market or by hand, and switch one Wealthfolio has no price for (a basket of stocks reported as one holding) to manual pricing"
+          },
+          {
+            "category": "alternative-assets",
+            "purpose": "List your loans, so a SimpleFin loan account can be linked to the one it records its balance on"
+          },
+          {
+            "category": "quotes",
+            "purpose": "Check whether a holding has any market price, and write the day's price for one that has none, from the value your bank reports. Record a linked loan account's balance on your Wealthfolio loan, as that day's confirmed balance"
           }
         ]
       },
@@ -606,6 +626,12 @@
             "host": "beta-bridge.simplefin.org"
           },
           {
+            "host": "lunchflow.app"
+          },
+          {
+            "host": "*.lunchflow.app"
+          },
+          {
             "host": "api.telegram.org"
           }
         ],
@@ -613,7 +639,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.6.2."
+        "detail": "Built against SDK 3.9.0."
       },
       "notices": [],
       "problems": [],
@@ -684,12 +710,12 @@
       "runtimeId": "trade-republic-importer",
       "repository": "https://github.com/blastik/trade-republic-importer-addon",
       "defaultBranch": "main",
-      "commit": "f914199644d20c6d4679538389c69e808689dc38",
+      "commit": "af3928243962001f8d70077c44151ebc9e9191d3",
       "license": "MIT",
-      "lastPushedAt": "2026-10-01",
+      "lastPushedAt": "2026-11-01",
       "manifest": {
         "name": "Trade Republic Importer",
-        "version": "1.3.4",
+        "version": "1.4.0",
         "sdkVersion": "3.9.0",
         "minWealthfolioVersion": "3.9.0",
         "permissions": [
@@ -699,7 +725,7 @@
           },
           {
             "category": "activities",
-            "purpose": "Validate and import activities parsed from the Trade Republic CSV"
+            "purpose": "Validate and import activities parsed from the Trade Republic CSV, and find deposits a bank sync already imported for the same transfers"
           },
           {
             "category": "assets",
@@ -849,7 +875,7 @@
       "defaultBranch": "main",
       "commit": "3fbe5a5b3bb811a045e367fb53a83d2061daea56",
       "license": "MIT",
-      "lastPushedAt": "2026-09-27",
+      "lastPushedAt": "2026-10-25",
       "manifest": {
         "name": "Skatt (Sweden)",
         "version": "1.2.1",
