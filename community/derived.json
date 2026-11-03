@@ -548,6 +548,54 @@
       ],
       "warnings": []
     },
+    "sell-targets-addon": {
+      "id": "sell-targets-addon",
+      "runtimeId": "sell-targets-addon",
+      "repository": "https://github.com/KamiliSebastian/Sell-Target-Wealthfolio",
+      "defaultBranch": "main",
+      "commit": "792f823eae93da918ab34b8bd7ed61af608ac86a",
+      "license": "MIT",
+      "lastPushedAt": "2026-11-03",
+      "manifest": {
+        "name": "Sell Targets",
+        "version": "2.0.1",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Name the account that holds a targeted position and split it per account"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Read the positions, purchase cost, day change and weights of every target"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read the base currency used for the value columns"
+          },
+          {
+            "category": "events",
+            "purpose": "Refresh the targets when a portfolio update or quote sync finishes"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.12.0."
+      },
+      "notices": [
+        "not-financial-advice",
+        "not-investment-advice"
+      ],
+      "problems": [],
+      "warnings": []
+    },
     "simplefin-sync": {
       "id": "simplefin-sync",
       "runtimeId": "simplefin-sync",

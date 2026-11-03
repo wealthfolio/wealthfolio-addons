@@ -1,0 +1,15 @@
+{
+  "$schema": "https://wealthfolio.app/schemas/addon-store.schema.json",
+  "id": "sell-targets-addon",
+  "name": "Sell Targets",
+  "description": "A hand-built shortlist of your positions, each with a take profit and a stop loss, showing the move still needed, the proceeds at each exit and where today's return sits between them.",
+  "author": {
+    "name": "Kamil Machniewicz",
+    "url": "https://github.com/KamiliSebastian"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["portfolio", "planning", "strategy", "take-profit", "stop-loss"],
+  "commercialModel": "free",
+  "repository": "https://github.com/KamiliSebastian/Sell-Target-Wealthfolio"
+}
