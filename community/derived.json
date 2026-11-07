@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T15:46:44.814Z",
+  "generatedAt": "2026-11-07T21:34:32.636Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -422,6 +422,43 @@
       "compatibility": {
         "state": "predates-sandbox",
         "detail": "Built against SDK 3.1.1, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "monthly-returns-addon": {
+      "id": "monthly-returns-addon",
+      "runtimeId": "monthly-returns-addon",
+      "repository": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon",
+      "defaultBranch": "main",
+      "commit": "86f7ef20388bb0a31bce73c1d95380252aa224c6",
+      "license": "MIT",
+      "lastPushedAt": "2026-11-07",
+      "manifest": {
+        "name": "Monthly Returns",
+        "version": "1.0.0",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
+        "permissions": [
+          {
+            "category": "portfolio",
+            "purpose": "Read daily portfolio and account values to build the monthly tables"
+          },
+          {
+            "category": "accounts",
+            "purpose": "List your accounts so you can view one account at a time"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.12.0."
       },
       "notices": [],
       "problems": [],

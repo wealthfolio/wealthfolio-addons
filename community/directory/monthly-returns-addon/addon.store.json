@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "monthly-returns-addon",
+  "name": "Monthly Returns",
+  "description": "Monthly returns and portfolio value, one year per row. Shows each month's time-weighted return or gain in money, month-end values and changes, for all accounts or one. Read-only and fully offline.",
+  "author": {
+    "name": "qsnapper",
+    "url": "https://github.com/qsnapper"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["analytics", "performance", "returns", "portfolio"],
+  "commercialModel": "free",
+  "repository": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon",
+  "supportUrl": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon/issues"
+}
