@@ -13,11 +13,11 @@ Listing requirements and the publisher attestation are in
 | Adanos Sentiment | Adanos | active | MIT | SDK 3.6+ | [Repo](https://github.com/adanos-software/wealthfolio-adanos-sentiment) |
 | Asset Amount & Cash Timeline | bryanrvo1511 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on) |
 | Broker Importer | waldonso2 | active | MIT | SDK 3.6+ | [Repo](https://github.com/waldonso2/wealthfolio-importer-addon) |
-| CAS Importer | Joel Tony | active | MIT | SDK 3.6+ | [Repo](https://github.com/jay-tau/wealthfolio-cas-importer) |
+| CAS Importer | Joel Tony | active | AGPL-3.0 | SDK 3.6+ | [Repo](https://github.com/jay-tau/wealthfolio-cas-importer) |
 | DeGiro Importer | shuisman | active | MIT | SDK 3.6+ | [Repo](https://github.com/shuisman/degiro-importer) |
 | Dividends Importer | kwaich | pending | MIT | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
-| Lunch Money Addon | elson8012 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/elson/lunchmoney-addon) |
+| Lunch Money Addon | elson8012 | pending | MIT | SDK 3.6+ | [Repo](https://github.com/elson/lunchmoney-addon) |
 | MyInvestor Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/myinvestor-importer-addon) |
 | Wealthfolio Rebalancer | ibalboteo | pending | none | SDK 3.6+ | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
 | SimpleFin Sync | Bubbles840 | active | MIT | SDK 3.6+ | [Repo](https://github.com/Bubbles840/wealthfolio-simplefin-addon) |
