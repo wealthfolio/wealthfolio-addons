@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T21:34:32.636Z",
+  "generatedAt": "2026-11-10T07:33:21.263Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -432,12 +432,12 @@
       "runtimeId": "monthly-returns-addon",
       "repository": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon",
       "defaultBranch": "main",
-      "commit": "86f7ef20388bb0a31bce73c1d95380252aa224c6",
+      "commit": "a9ea89c410412caddb2f0596d889b92397b030cd",
       "license": "MIT",
       "lastPushedAt": "2026-11-07",
       "manifest": {
         "name": "Monthly Returns",
-        "version": "1.0.0",
+        "version": "1.1.1",
         "sdkVersion": "3.12.0",
         "minWealthfolioVersion": "3.12.0",
         "permissions": [
