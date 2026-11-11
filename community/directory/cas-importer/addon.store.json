@@ -1,10 +1,10 @@
 {
   "$schema": "../../../schemas/addon-store.schema.json",
   "id": "cas-importer",
-  "name": "CAS Importer",
+  "name": "CAS Importer (India)",
   "description": "Import Indian CAS PDFs into Wealthfolio. Detailed CAMS and KFintech statements become transactions, with their cash as deposits and withdrawals or bank transfers. Summary and NSDL/CDSL statements become holdings snapshots. The PDF is read on your device with casparser.",
   "author": {
-    "name": "Joel Tony",
+    "name": "jay-tau",
     "url": "https://github.com/jay-tau"
   },
   "trust": "community",
