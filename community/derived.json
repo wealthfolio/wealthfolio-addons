@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T02:26:54.521Z",
+  "generatedAt": "2026-11-11T22:15:04.346Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -369,6 +369,70 @@
       "compatibility": {
         "state": "current",
         "detail": "Built against SDK 3.6.0."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
+    "hindsight": {
+      "id": "hindsight",
+      "runtimeId": "hindsight",
+      "repository": "https://github.com/schabimperle/hindsight",
+      "defaultBranch": "main",
+      "commit": "d671e7e84e2fbf18b631bfcb3e8bda7e797954f1",
+      "license": "MIT",
+      "lastPushedAt": "2026-11-11",
+      "manifest": {
+        "name": "Hindsight",
+        "version": "0.4.0",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "List accounts for selection"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Read current values and valuation history of the selected accounts"
+          },
+          {
+            "category": "activities",
+            "purpose": "Derive deposits, withdrawals and transfers as cash flows"
+          },
+          {
+            "category": "quotes",
+            "purpose": "Value asset transfers at their date"
+          },
+          {
+            "category": "settings",
+            "purpose": "Read base currency and time zone"
+          },
+          {
+            "category": "market-data",
+            "purpose": "Search comparison assets by name or ticker"
+          },
+          {
+            "category": "network",
+            "purpose": "Fetch daily prices and exchange rates (Yahoo Finance) and consumer price indices (OECD)"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": true,
+        "externalServices": [
+          {
+            "host": "query1.finance.yahoo.com"
+          },
+          {
+            "host": "sdmx.oecd.org"
+          }
+        ],
+        "basis": "It asked for internet access and can reach the sites listed here, if you allow that when you install it."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.12.0."
       },
       "notices": [],
       "problems": [],

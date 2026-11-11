@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "hindsight",
+  "name": "Hindsight",
+  "description": "Would a different investment have done better with your money? Replays your deposits and withdrawals in an index ETF, Bitcoin, any ticker or a fixed mix.",
+  "author": {
+    "name": "Malte Schababerle",
+    "url": "https://github.com/schabimperle"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": ["portfolio", "benchmark", "analytics"],
+  "commercialModel": "free",
+  "repository": "https://github.com/schabimperle/hindsight"
+}
