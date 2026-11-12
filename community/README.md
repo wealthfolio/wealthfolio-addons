@@ -21,6 +21,7 @@ Listing requirements and the publisher attestation are in
 | Monthly Returns | qsnapper | active | MIT | SDK 3.6+ | [Repo](https://github.com/qsnapper/wealthfolio-monthly-returns-addon) |
 | MyInvestor Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/myinvestor-importer-addon) |
 | Wealthfolio Rebalancer | ibalboteo | pending | none | SDK 3.6+ | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
+| Sell Targets | Kamil Machniewicz | active | MIT | SDK 3.6+ | [Repo](https://github.com/KamiliSebastian/Sell-Target-Wealthfolio) |
 | SimpleFin Sync | Bubbles840 | active | MIT | SDK 3.6+ | [Repo](https://github.com/Bubbles840/wealthfolio-simplefin-addon) |
 | SimpleFIN Sync | Christian Mendieta | active | MIT | SDK 3.6+ | [Repo](https://github.com/christancho/simplefin-wealthfolio-addon) |
 | Trade Republic Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/trade-republic-importer-addon) |
