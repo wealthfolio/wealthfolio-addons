@@ -17,6 +17,7 @@ Listing requirements and the publisher attestation are in
 | DeGiro Importer | shuisman | active | MIT | SDK 3.6+ | [Repo](https://github.com/shuisman/degiro-importer) |
 | Dividends Importer | kwaich | pending | MIT | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
+| Hindsight | Malte Schababerle | active | MIT | SDK 3.6+ | [Repo](https://github.com/schabimperle/hindsight) |
 | Lunch Money Addon | elson8012 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/elson/lunchmoney-addon) |
 | Monthly Returns | qsnapper | active | MIT | SDK 3.6+ | [Repo](https://github.com/qsnapper/wealthfolio-monthly-returns-addon) |
 | MyInvestor Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/myinvestor-importer-addon) |
