@@ -431,6 +431,43 @@
       "problems": [],
       "warnings": []
     },
+    "monthly-returns-addon": {
+      "id": "monthly-returns-addon",
+      "runtimeId": "monthly-returns-addon",
+      "repository": "https://github.com/qsnapper/wealthfolio-monthly-returns-addon",
+      "defaultBranch": "main",
+      "commit": "a9ea89c410412caddb2f0596d889b92397b030cd",
+      "license": "MIT",
+      "lastPushedAt": "2026-11-07",
+      "manifest": {
+        "name": "Monthly Returns",
+        "version": "1.1.1",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
+        "permissions": [
+          {
+            "category": "portfolio",
+            "purpose": "Read daily portfolio and account values to build the monthly tables"
+          },
+          {
+            "category": "accounts",
+            "purpose": "List your accounts so you can view one account at a time"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.12.0."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
+    },
     "myinvestor-importer-addon": {
       "id": "myinvestor-importer-addon",
       "runtimeId": "myinvestor-importer",
