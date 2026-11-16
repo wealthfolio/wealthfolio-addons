@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T20:16:36.993Z",
+  "generatedAt": "2026-11-16T16:53:25.881Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -104,14 +104,14 @@
       "runtimeId": "broker-importer",
       "repository": "https://github.com/waldonso2/wealthfolio-importer-addon",
       "defaultBranch": "main",
-      "commit": "2d8d000668146e7c1af236807472d57222500d9d",
+      "commit": "cd99fb36a1565753485fa1cad07db8eed1288ab3",
       "license": "MIT",
-      "lastPushedAt": "2026-10-30",
+      "lastPushedAt": "2026-11-09",
       "manifest": {
         "name": "Broker Importer",
-        "version": "3.11.0",
-        "sdkVersion": "3.11.0",
-        "minWealthfolioVersion": "3.11.0",
+        "version": "3.12.2",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
         "permissions": [
           {
             "category": "accounts",
@@ -120,10 +120,6 @@
           {
             "category": "activities",
             "purpose": "Validate and import activities parsed from broker CSV exports and PDF statements; read existing trades and dividends to skip transactions already imported from another source; move activities to the right asset when a security mapping is corrected"
-          },
-          {
-            "category": "assets",
-            "purpose": "Create new asset entries for unrecognised securities during import"
           },
           {
             "category": "secrets",
@@ -154,7 +150,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.11.0."
+        "detail": "Built against SDK 3.12.0."
       },
       "notices": [],
       "problems": [],
@@ -167,18 +163,18 @@
       "runtimeId": "cas-importer",
       "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
       "defaultBranch": "main",
-      "commit": "37698a10a93737225575d830f71eea8e7cbef722",
+      "commit": "de4c4b119ad6a9856d8db07b21f2b0a0838d95cc",
       "license": "AGPL-3.0",
-      "lastPushedAt": "2026-11-11",
+      "lastPushedAt": "2026-11-16",
       "manifest": {
         "name": "CAS Importer (India)",
-        "version": "2.2.0",
-        "sdkVersion": "3.12.0",
-        "minWealthfolioVersion": "3.12.0",
+        "version": "3.2.0",
+        "sdkVersion": "3.13.0",
+        "minWealthfolioVersion": "3.13.0",
         "permissions": [
           {
             "category": "accounts",
-            "purpose": "Choose the account each PAN's or folio's transactions go to and the bank account their cash comes from and goes to, or the account each folio's, demat account's or PRAN's holdings go to"
+            "purpose": "Choose the account each PAN's or folio's transactions go to and the bank account their cash comes from and goes to, or the account each folio's, demat account's or PRAN's holdings go to. Create the account a statement's holdings or transactions go to, when you choose a proposed new account and save"
           },
           {
             "category": "portfolio",
@@ -190,7 +186,11 @@
           },
           {
             "category": "activities",
-            "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered"
+            "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered. Before you choose one, check whether it's split across spending categories, which changing it into a transfer deletes, and once it's linked, remove its spending or income category, as Wealthfolio does"
+          },
+          {
+            "category": "spending",
+            "purpose": "Check whether a bank account is in Spending, before saying what reusing its entry changes"
           },
           {
             "category": "settings",
@@ -198,7 +198,7 @@
           },
           {
             "category": "market-data",
-            "purpose": "Find each asset by the ISIN or name printed on the statement, or by what you type, and check existing assets before using statement prices"
+            "purpose": "Find each asset by the ISIN or name printed on the statement, or by what you type, check existing assets before using statement prices, and check whether AMFI prices are on, to ask you to add them before reading a statement"
           },
           {
             "category": "quotes",
@@ -221,7 +221,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.12.0."
+        "detail": "Built against SDK 3.13.0."
       },
       "notices": [],
       "problems": [],
@@ -318,12 +318,12 @@
       "runtimeId": "dividend-tracker-addon",
       "repository": "https://github.com/kwaich/dividend-tracker",
       "defaultBranch": "main",
-      "commit": "163a51c021ac321006a0a5aca348323cda650d75",
+      "commit": "d27168c6fc21177c0332f1477aafaac96e824ee5",
       "license": "MIT",
-      "lastPushedAt": "2026-10-05",
+      "lastPushedAt": "2026-10-22",
       "manifest": {
         "name": "Dividends Importer",
-        "version": "1.3.0",
+        "version": "1.4.0",
         "sdkVersion": "3.6.0",
         "minWealthfolioVersion": "3.6.0",
         "permissions": [
@@ -379,12 +379,12 @@
       "runtimeId": "hindsight",
       "repository": "https://github.com/schabimperle/hindsight",
       "defaultBranch": "main",
-      "commit": "31201760745b40bf9c0486d62ad4fa27dcd3626e",
+      "commit": "213627087d0bc55ea2041c40ea1f3c37e0f0a94a",
       "license": "MIT",
-      "lastPushedAt": "2026-11-12",
+      "lastPushedAt": "2026-11-13",
       "manifest": {
         "name": "Hindsight",
-        "version": "0.4.2",
+        "version": "0.4.4",
         "sdkVersion": "3.12.0",
         "minWealthfolioVersion": "3.12.0",
         "permissions": [
@@ -447,14 +447,14 @@
       "runtimeId": "lunchmoney-addon",
       "repository": "https://github.com/elson/lunchmoney-addon",
       "defaultBranch": "main",
-      "commit": "a4908cf45b211c2a62da795989ee89234a4e1442",
+      "commit": "aca8054d6a0af69a6e1f4e0204b76566ea62b79b",
       "license": "MIT",
-      "lastPushedAt": "2026-03-19",
+      "lastPushedAt": "2026-11-07",
       "manifest": {
         "name": "Lunch Money Add-on",
-        "version": "0.3.4",
-        "sdkVersion": "3.1.1",
-        "minWealthfolioVersion": null,
+        "version": "0.8.1",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
         "permissions": [
           {
             "category": "accounts",
@@ -466,34 +466,30 @@
           },
           {
             "category": "secrets",
-            "purpose": "Store Lunch Money API key securely"
+            "purpose": "Store Lunch Money API key securely and let Wealthfolio attach it to Lunch Money API requests"
           },
           {
             "category": "portfolio",
             "purpose": "Fetch current Wealthfolio cash balances to compare against Lunch Money"
           },
           {
-            "category": "navigation",
-            "purpose": "Navigate to Wealthfolio account detail pages"
-          },
-          {
-            "category": "logger",
-            "purpose": "Log errors to the Wealthfolio logger"
-          },
-          {
-            "category": "ui",
-            "purpose": "Add navigation items and routes to the sidebar, and clean up on disable"
+            "category": "network",
+            "purpose": "Read account balances from the Lunch Money API (api.lunchmoney.dev, GET only)"
           }
         ]
       },
       "dataHandling": {
-        "userDataLeavesDevice": null,
-        "externalServices": [],
-        "basis": "Built before Wealthfolio 3.6, back when add-ons could go online without asking. There is no way to tell from the outside where its data goes."
+        "userDataLeavesDevice": true,
+        "externalServices": [
+          {
+            "host": "api.lunchmoney.dev"
+          }
+        ],
+        "basis": "It asked for internet access and can reach the sites listed here, if you allow that when you install it."
       },
       "compatibility": {
-        "state": "predates-sandbox",
-        "detail": "Built against SDK 3.1.1, before the 3.6 sandbox change. It may not work on current Wealthfolio."
+        "state": "current",
+        "detail": "Built against SDK 3.12.0."
       },
       "notices": [],
       "problems": [],
@@ -541,14 +537,14 @@
       "runtimeId": "myinvestor-importer",
       "repository": "https://github.com/blastik/myinvestor-importer-addon",
       "defaultBranch": "main",
-      "commit": "fab14f168143e8a20201cb2215494fe8a7928e33",
+      "commit": "1952f41946d9e1251f00944aed3b90a04f77d69d",
       "license": "MIT",
-      "lastPushedAt": "2026-10-01",
+      "lastPushedAt": "2026-11-03",
       "manifest": {
         "name": "MyInvestor Importer",
-        "version": "1.4.0",
-        "sdkVersion": "3.9.0",
-        "minWealthfolioVersion": "3.9.0",
+        "version": "2.0.0",
+        "sdkVersion": "3.12.0",
+        "minWealthfolioVersion": "3.12.0",
         "permissions": [
           {
             "category": "accounts",
@@ -556,7 +552,7 @@
           },
           {
             "category": "activities",
-            "purpose": "Validate and import activities parsed from the MyInvestor/Inversis exports; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
+            "purpose": "Validate and import activities parsed from the MyInvestor/Inversis exports; write fund switches as paired fund conversions, replacing the buy/sell activities an earlier import booked for the same switches; read existing account activities to avoid double-recording money already imported as a cross-account transfer by another addon"
           },
           {
             "category": "assets",
@@ -595,7 +591,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.9.0."
+        "detail": "Built against SDK 3.12.0."
       },
       "notices": [],
       "problems": [],
@@ -609,9 +605,9 @@
       "runtimeId": "rebalancer",
       "repository": "https://github.com/ibalboteo/wealthfolio-rebalancer",
       "defaultBranch": "main",
-      "commit": "f5105d6017bedde79248730395123f36a187ef4b",
+      "commit": "4ec50b7fbe4c83d807d07dd9e51a060d8afc8556",
       "license": null,
-      "lastPushedAt": "2026-09-21",
+      "lastPushedAt": "2026-10-26",
       "manifest": {
         "name": "rebalancer",
         "version": "3.1.0",
@@ -662,14 +658,14 @@
       "runtimeId": "simplefin-sync",
       "repository": "https://github.com/Bubbles840/wealthfolio-simplefin-addon",
       "defaultBranch": "main",
-      "commit": "2b9f93abba2e7f1618adf49b7ecbbaaea1b3de9d",
+      "commit": "288b4a11d0251bf68ee889a76e608c3964bacbed",
       "license": "MIT",
-      "lastPushedAt": "2026-09-24",
+      "lastPushedAt": "2026-11-16",
       "manifest": {
         "name": "SimpleFin Sync",
-        "version": "1.56.1",
-        "sdkVersion": "3.6.2",
-        "minWealthfolioVersion": "3.6.2",
+        "version": "1.76.1",
+        "sdkVersion": "3.9.0",
+        "minWealthfolioVersion": "3.8.0",
         "permissions": [
           {
             "category": "accounts",
@@ -677,7 +673,11 @@
           },
           {
             "category": "activities",
-            "purpose": "Import bank transactions, reconcile pending transactions (create/update/delete), and link transfer pairs"
+            "purpose": "Import bank transactions, reconcile pending transactions (create/update/delete), and link transfer pairs. On Wealthfolio 3.9 and newer: link and unlink transfers in place, and read whether a transaction is linked and what it is filed under"
+          },
+          {
+            "category": "spending",
+            "purpose": "Read your spending categories' names, to show what a transaction is filed under. On Wealthfolio 3.9 and newer: file a deposit you mark as a payback under the spending it pays back, through a one-off filing rule the add-on makes, runs and deletes"
           },
           {
             "category": "navigation",
@@ -685,7 +685,7 @@
           },
           {
             "category": "portfolio",
-            "purpose": "Read current account balances to size one-time starting-balance corrections"
+            "purpose": "Read current account balances to size one-time starting-balance corrections, and read which holdings an investment account has priced, so only a holding with no price is looked at"
           },
           {
             "category": "secrets",
@@ -701,7 +701,19 @@
           },
           {
             "category": "snapshots",
-            "purpose": "Import holdings snapshots for investment accounts, so a brokerage syncs its positions and not only its cash."
+            "purpose": "Import holdings snapshots for investment accounts, so a brokerage syncs its positions and not only its cash, and read earlier snapshots to find the holding a dividend paid after its sale belongs to."
+          },
+          {
+            "category": "assets",
+            "purpose": "Read whether a holding is priced by the market or by hand, and switch one Wealthfolio has no price for (a basket of stocks reported as one holding) to manual pricing"
+          },
+          {
+            "category": "alternative-assets",
+            "purpose": "List your loans, so a SimpleFin loan account can be linked to the one it records its balance on"
+          },
+          {
+            "category": "quotes",
+            "purpose": "Check whether a holding has any market price, and write the day's price for one that has none, from the value your bank reports. Record a linked loan account's balance on your Wealthfolio loan, as that day's confirmed balance"
           }
         ]
       },
@@ -715,6 +727,12 @@
             "host": "beta-bridge.simplefin.org"
           },
           {
+            "host": "lunchflow.app"
+          },
+          {
+            "host": "*.lunchflow.app"
+          },
+          {
             "host": "api.telegram.org"
           }
         ],
@@ -722,7 +740,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.6.2."
+        "detail": "Built against SDK 3.9.0."
       },
       "notices": [],
       "problems": [],
@@ -793,12 +811,12 @@
       "runtimeId": "trade-republic-importer",
       "repository": "https://github.com/blastik/trade-republic-importer-addon",
       "defaultBranch": "main",
-      "commit": "f914199644d20c6d4679538389c69e808689dc38",
+      "commit": "44aa70d26b1f02a7454db48e90ee0de85ec06d16",
       "license": "MIT",
-      "lastPushedAt": "2026-10-01",
+      "lastPushedAt": "2026-11-16",
       "manifest": {
         "name": "Trade Republic Importer",
-        "version": "1.3.4",
+        "version": "1.4.1",
         "sdkVersion": "3.9.0",
         "minWealthfolioVersion": "3.9.0",
         "permissions": [
@@ -808,7 +826,7 @@
           },
           {
             "category": "activities",
-            "purpose": "Validate and import activities parsed from the Trade Republic CSV"
+            "purpose": "Validate and import activities parsed from the Trade Republic CSV, find deposits already imported on the destination accounts for the same transfers, and link both legs of each internal transfer"
           },
           {
             "category": "assets",
@@ -958,7 +976,7 @@
       "defaultBranch": "main",
       "commit": "3fbe5a5b3bb811a045e367fb53a83d2061daea56",
       "license": "MIT",
-      "lastPushedAt": "2026-09-27",
+      "lastPushedAt": "2026-10-25",
       "manifest": {
         "name": "Skatt (Sweden)",
         "version": "1.2.1",
