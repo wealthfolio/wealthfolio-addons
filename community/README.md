@@ -18,7 +18,7 @@ Listing requirements and the publisher attestation are in
 | Dividends Importer | kwaich | pending | MIT | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |
 | Hindsight | Malte Schababerle | active | MIT | SDK 3.6+ | [Repo](https://github.com/schabimperle/hindsight) |
-| Lunch Money Addon | elson8012 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/elson/lunchmoney-addon) |
+| Lunch Money Addon | elson8012 | pending | MIT | SDK 3.6+ | [Repo](https://github.com/elson/lunchmoney-addon) |
 | Monthly Returns | qsnapper | active | MIT | SDK 3.6+ | [Repo](https://github.com/qsnapper/wealthfolio-monthly-returns-addon) |
 | MyInvestor Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/myinvestor-importer-addon) |
 | Wealthfolio Rebalancer | ibalboteo | pending | none | SDK 3.6+ | [Repo](https://github.com/ibalboteo/wealthfolio-rebalancer) |
@@ -26,7 +26,7 @@ Listing requirements and the publisher attestation are in
 | SimpleFIN Sync | Christian Mendieta | active | MIT | SDK 3.6+ | [Repo](https://github.com/christancho/simplefin-wealthfolio-addon) |
 | Trade Republic Importer | blastik | active | MIT | SDK 3.6+ | [Repo](https://github.com/blastik/trade-republic-importer-addon) |
 | Value Averaging Addon | wujoe | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/WuJoe826/Value-Averaging-Addon) |
-| WealthTax | advenacodex | active | MIT | SDK 3.6+ | [Repo](https://github.com/advenacodex/wealth-tax) |
+| WealthTax | advenacodex | active | AGPL-3.0 | no usable SDK version | [Repo](https://github.com/advenacodex/wealth-tax) |
 | Skatt (Sweden) | AlexanderBabel | active | MIT | SDK 3.6+ | [Repo](https://github.com/AlexanderBabel/wealthfolio-skatt) |
 | Transfer Finder | Mark Rickert | active | MIT | SDK 3.6+ | [Repo](https://github.com/markrickert/wealthfolio-transfer-finder) |
 
