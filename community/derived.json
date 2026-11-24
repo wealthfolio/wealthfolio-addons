@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T20:16:36.993Z",
+  "generatedAt": "2026-11-24T07:07:58.654Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -167,18 +167,18 @@
       "runtimeId": "cas-importer",
       "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
       "defaultBranch": "main",
-      "commit": "37698a10a93737225575d830f71eea8e7cbef722",
+      "commit": "5ce5761dcd0025e2669c3f6b0b0e5f6419b77991",
       "license": "AGPL-3.0",
-      "lastPushedAt": "2026-11-11",
+      "lastPushedAt": "2026-11-24",
       "manifest": {
         "name": "CAS Importer (India)",
-        "version": "2.2.0",
-        "sdkVersion": "3.12.0",
-        "minWealthfolioVersion": "3.12.0",
+        "version": "3.3.1",
+        "sdkVersion": "3.13.0",
+        "minWealthfolioVersion": "3.13.0",
         "permissions": [
           {
             "category": "accounts",
-            "purpose": "Choose the account each PAN's or folio's transactions go to and the bank account their cash comes from and goes to, or the account each folio's, demat account's or PRAN's holdings go to"
+            "purpose": "Choose the account each PAN's or folio's transactions go to and the bank account their cash comes from and goes to, or the account each folio's, demat account's or PRAN's holdings go to. Create the account a statement's holdings or transactions go to, when you choose a proposed new account and save"
           },
           {
             "category": "portfolio",
@@ -190,7 +190,11 @@
           },
           {
             "category": "activities",
-            "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered"
+            "purpose": "Check transactions before importing activities, a summary or depository statement's units against accounts that track transactions, and stock splits before carrying holdings into a snapshot. When you choose to use a bank account's deposit or withdrawal for a fund's cash, add the fund's transfer, change the bank's row into a transfer if it isn't one, and link the two; transfers already linked aren't offered. Before you choose one, check whether it's split across spending categories, which changing it into a transfer deletes, and once it's linked, remove its spending or income category, as Wealthfolio does"
+          },
+          {
+            "category": "spending",
+            "purpose": "Check whether a bank account is in Spending, before saying what reusing its entry changes"
           },
           {
             "category": "settings",
@@ -198,7 +202,7 @@
           },
           {
             "category": "market-data",
-            "purpose": "Find each asset by the ISIN or name printed on the statement, or by what you type, and check existing assets before using statement prices"
+            "purpose": "Find each asset by the ISIN or name printed on the statement, or by what you type, check existing assets before using statement prices, and check whether AMFI prices are on, to ask you to add them before reading a statement"
           },
           {
             "category": "quotes",
@@ -221,7 +225,7 @@
       },
       "compatibility": {
         "state": "current",
-        "detail": "Built against SDK 3.12.0."
+        "detail": "Built against SDK 3.13.0."
       },
       "notices": [],
       "problems": [],

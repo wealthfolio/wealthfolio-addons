@@ -2,14 +2,14 @@
   "$schema": "../../../schemas/addon-store.schema.json",
   "id": "cas-importer",
   "name": "CAS Importer (India)",
-  "description": "Import Indian CAS PDFs into Wealthfolio. Detailed CAMS and KFintech statements become transactions, with their cash as deposits and withdrawals or bank transfers. Summary and NSDL/CDSL statements become holdings snapshots. The PDF is read on your device with casparser.",
+  "description": "Imports a Consolidated Account Statement (CAS), the PDF that CAMS, KFintech, NSDL or CDSL sends for Indian mutual funds and demat accounts. A detailed CAMS or KFintech statement is imported as transactions, a summary or NSDL/CDSL statement as holdings. The PDF is read on your device.",
   "author": {
     "name": "jay-tau",
     "url": "https://github.com/jay-tau"
   },
   "trust": "community",
   "status": "active",
-  "tags": ["import", "activities", "holdings", "mutual-funds", "india", "pdf"],
+  "tags": ["india", "mutual-funds", "import", "pdf", "holdings", "activities"],
   "commercialModel": "free",
   "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
   "supportUrl": "https://github.com/jay-tau/wealthfolio-cas-importer/issues"
