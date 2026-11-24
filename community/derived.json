@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T17:16:05.257Z",
+  "generatedAt": "2026-11-24T07:07:58.654Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -167,12 +167,12 @@
       "runtimeId": "cas-importer",
       "repository": "https://github.com/jay-tau/wealthfolio-cas-importer",
       "defaultBranch": "main",
-      "commit": "6161a6d62ac6119dc41a55cd2baf80790385af55",
+      "commit": "5ce5761dcd0025e2669c3f6b0b0e5f6419b77991",
       "license": "AGPL-3.0",
-      "lastPushedAt": "2026-11-22",
+      "lastPushedAt": "2026-11-24",
       "manifest": {
         "name": "CAS Importer (India)",
-        "version": "3.3.0",
+        "version": "3.3.1",
         "sdkVersion": "3.13.0",
         "minWealthfolioVersion": "3.13.0",
         "permissions": [
