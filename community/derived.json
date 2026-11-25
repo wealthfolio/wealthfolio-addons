@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T20:16:36.993Z",
+  "generatedAt": "2026-11-25T02:59:37.352Z",
   "addons": {
     "adanos-sentiment": {
       "id": "adanos-sentiment",
@@ -228,6 +228,51 @@
       "warnings": [
         "declares the secrets permission but not network, so any service it stores credentials for is unreachable"
       ]
+    },
+    "credit-card-payment-tracker": {
+      "id": "credit-card-payment-tracker",
+      "runtimeId": "credit-card-payment-tracker",
+      "repository": "https://github.com/vamsicharanadari/credit-card-payment-tracker",
+      "defaultBranch": "main",
+      "commit": "72b8bf5808bc499db40b439b758b1198cf7b4033",
+      "license": "Apache-2.0",
+      "lastPushedAt": "2026-11-25",
+      "manifest": {
+        "name": "Credit Card & Payment Tracker",
+        "version": "1.1.0",
+        "sdkVersion": "3.13.1",
+        "minWealthfolioVersion": "3.13.1",
+        "permissions": [
+          {
+            "category": "accounts",
+            "purpose": "Load and display checking and credit card accounts"
+          },
+          {
+            "category": "portfolio",
+            "purpose": "Load live account valuations and balances"
+          },
+          {
+            "category": "activities",
+            "purpose": "Record bill payment transfers between checking and credit cards"
+          },
+          {
+            "category": "storage",
+            "purpose": "Persist card payment metadata, due dates, credit limits, and settings across browser sessions"
+          }
+        ]
+      },
+      "dataHandling": {
+        "userDataLeavesDevice": false,
+        "externalServices": [],
+        "basis": "It never asked for internet access, so Wealthfolio will not let it connect to anything."
+      },
+      "compatibility": {
+        "state": "current",
+        "detail": "Built against SDK 3.13.1."
+      },
+      "notices": [],
+      "problems": [],
+      "warnings": []
     },
     "degiro-importer": {
       "id": "degiro-importer",

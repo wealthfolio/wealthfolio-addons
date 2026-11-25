@@ -14,6 +14,7 @@ Listing requirements and the publisher attestation are in
 | Asset Amount & Cash Timeline | bryanrvo1511 | pending | MIT | pre-3.6 — rebuild needed | [Repo](https://github.com/bryanrvo/Asset-amount-Cash-Timeline-add-on) |
 | Broker Importer | waldonso2 | active | MIT | SDK 3.6+ | [Repo](https://github.com/waldonso2/wealthfolio-importer-addon) |
 | CAS Importer (India) | jay-tau | active | AGPL-3.0 | SDK 3.6+ | [Repo](https://github.com/jay-tau/wealthfolio-cas-importer) |
+| Credit Card & Payment Tracker | Vamsi Charan Adari | active | Apache-2.0 | SDK 3.6+ | [Repo](https://github.com/vamsicharanadari/credit-card-payment-tracker) |
 | DeGiro Importer | shuisman | active | MIT | SDK 3.6+ | [Repo](https://github.com/shuisman/degiro-importer) |
 | Dividends Importer | kwaich | pending | MIT | SDK 3.6+ | [Repo](https://github.com/kwaich/dividend-tracker) |
 | Wealthfolio Dividend Tracker | ragnarok896209 | pending | none | pre-3.6 — rebuild needed | [Repo](https://github.com/ragnarok-89/Wealthfolio-Dividend-Tracker) |

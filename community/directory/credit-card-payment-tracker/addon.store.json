@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../schemas/addon-store.schema.json",
+  "id": "credit-card-payment-tracker",
+  "name": "Credit Card & Payment Tracker",
+  "description": "Due dates, statement balances, cash-flow radar with shortfall calculation, and credit utilization tracking.",
+  "author": {
+    "name": "Vamsi Charan Adari",
+    "url": "https://github.com/vamsicharanadari"
+  },
+  "trust": "community",
+  "status": "active",
+  "tags": [
+    "credit-cards",
+    "bills",
+    "payments",
+    "cash-flow",
+    "budgeting"
+  ],
+  "commercialModel": "free",
+  "repository": "https://github.com/vamsicharanadari/credit-card-payment-tracker"
+}
